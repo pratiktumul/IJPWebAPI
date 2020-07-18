@@ -31,6 +31,13 @@
           <Property Name="JobType" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rolename" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -40,6 +47,7 @@
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
           <Property Name="UserEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="Fullname" Type="nvarchar" MaxLength="100" />
+          <Property Name="RoleId" Type="int" />
         </EntityType>
         <Association Name="FK_Demo_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -53,13 +61,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TestDBModelStoreContainer">
           <EntitySet Name="Demo" EntityType="Self.Demo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Demo_User" Association="Self.FK_Demo_User">
             <End Role="User" EntitySet="User" />
             <End Role="Demo" EntitySet="Demo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Roles" Association="Self.FK_User_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -92,6 +117,8 @@
           <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Demoes" Relationship="Self.FK_Demo_User" FromRole="User" ToRole="Demo" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="TestDBModel.FK_User_Roles" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK_Demo_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -113,6 +140,11 @@
             <End Role="Demo" EntitySet="Demoes" />
           </AssociationSet>
           <EntitySet Name="JobOpenings" EntityType="TestDBModel.JobOpening" />
+          <EntitySet Name="Roles" EntityType="TestDBModel.Role" />
+          <AssociationSet Name="FK_User_Roles" Association="TestDBModel.FK_User_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobOpening">
           <Key>
@@ -125,6 +157,26 @@
           <Property Name="JobType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="TestDBModel.FK_User_Roles" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Roles">
+          <End Type="TestDBModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="TestDBModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -150,6 +202,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TestDBModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
@@ -167,6 +220,14 @@
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="JobId" ColumnName="JobId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TestDBModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Rolename" ColumnName="Rolename" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

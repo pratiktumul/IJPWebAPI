@@ -28,5 +28,6 @@ namespace WebApiAuthenticationToken
         public virtual DbSet<Demo> Demoes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
     }
 }

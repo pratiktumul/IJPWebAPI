@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="TestDBModel.User" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="TestDBModel.FK_Demo_User" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TestDBModel.JobOpening" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TestDBModel.Role" Width="1.5" PointX="2.875" PointY="4.625" />
+        <AssociationConnector Association="TestDBModel.FK_User_Roles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

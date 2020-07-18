@@ -26,8 +26,9 @@ namespace WebApiAuthenticationToken.Controllers
                 {
                     UserName = user.UserName,
                     UserEmail = user.UserEmail,
-                    UserPassword = user.UserPassword,
-                    Fullname = user.Fullname
+                    UserPassword = Utils.HashPassword(user.UserPassword),
+                    Fullname = user.Fullname,
+                    RoleId = user.RoleId
                 };
 
                 db.Users.Add(model);

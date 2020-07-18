@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Security.OAuth;
+﻿using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +20,43 @@ namespace WebApiAuthenticationToken
             using (UserMasterRepository _repo = new UserMasterRepository())
             {
                 var user = _repo.ValidateUser(context.UserName, context.Password);
+                var roleName = "";
                 if (user == null)
                 {
                     context.SetError("invalid_grant", "Provided username and password is incorrect");
                     return;
                 }
+                using (var db = new TestDBEntities2())
+                {
+                    var role = db.Roles.FirstOrDefault(x => x.RoleId == user.RoleId);
+                    roleName = role.Rolename;
+                }
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
                 identity.AddClaim(new Claim("Email", user.UserEmail));
-                context.Validated(identity);
+                identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
+
+                var additionalData = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    {
+                        "role", Newtonsoft.Json.JsonConvert.SerializeObject(roleName)
+                    },
+                    {
+                        "username", user.UserName
+                    }
+                });
+                var token = new AuthenticationTicket(identity, additionalData);
+                context.Validated(token);
             }
+        }
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            {
+                context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
+
+            return Task.FromResult<object>(null);
         }
     }
 }
