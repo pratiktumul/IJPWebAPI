@@ -36,5 +36,21 @@ namespace WebApiAuthenticationToken.Controllers
             }
             return Ok();
         }
+        [HttpPut]
+        public IHttpActionResult PutUpdatePassword([FromUri] int id, [FromBody] UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var db = new TestDBEntities2())
+                {
+                    var userDetails = db.Users.FirstOrDefault(x => x.UserId == id);
+
+                    userDetails.UserPassword = Utils.HashPassword(model.UserPassword);
+                    db.SaveChanges();
+                    return Ok();
+                }
+            }
+            return BadRequest();
+        }
     }
 }
