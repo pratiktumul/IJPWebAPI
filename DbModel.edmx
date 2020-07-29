@@ -49,6 +49,14 @@
           <Property Name="Fullname" Type="nvarchar" MaxLength="100" />
           <Property Name="RoleId" Type="int" />
         </EntityType>
+        <EntityType Name="User_Log">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Last_Login_Date" Type="date" Nullable="false" />
+          <Property Name="Last_Job_Apply_Date" Type="date" />
+        </EntityType>
         <Association Name="FK_Demo_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Demo" Type="Self.Demo" Multiplicity="*" />
@@ -57,6 +65,18 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Demo">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Log_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Log" Type="Self.User_Log" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="User_Log">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -78,9 +98,14 @@
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Log" EntityType="Self.User_Log" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Demo_User" Association="Self.FK_Demo_User">
             <End Role="User" EntitySet="User" />
             <End Role="Demo" EntitySet="Demo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Log_User" Association="Self.FK_User_Log_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Log" EntitySet="User_Log" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Roles" Association="Self.FK_User_Roles">
             <End Role="Roles" EntitySet="Roles" />
@@ -119,6 +144,7 @@
           <NavigationProperty Name="Demoes" Relationship="Self.FK_Demo_User" FromRole="User" ToRole="Demo" />
           <Property Name="RoleId" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="TestDBModel.FK_User_Roles" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="User_Log" Relationship="TestDBModel.FK_User_Log_User" FromRole="User" ToRole="User_Log" />
         </EntityType>
         <Association Name="FK_Demo_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -144,6 +170,11 @@
           <AssociationSet Name="FK_User_Roles" Association="TestDBModel.FK_User_Roles">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="User_Log" EntityType="TestDBModel.User_Log" />
+          <AssociationSet Name="FK_User_Log_User" Association="TestDBModel.FK_User_Log_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_Log" EntitySet="User_Log" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobOpening">
@@ -174,6 +205,27 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User_Log">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Last_Login_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Last_Job_Apply_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User" Relationship="TestDBModel.FK_User_Log_User" FromRole="User_Log" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Log_User">
+          <End Type="TestDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="TestDBModel.User_Log" Role="User_Log" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="User_Log">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -228,6 +280,15 @@
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="Rolename" ColumnName="Rolename" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Log">
+            <EntityTypeMapping TypeName="TestDBModel.User_Log">
+              <MappingFragment StoreEntitySet="User_Log">
+                <ScalarProperty Name="Last_Job_Apply_Date" ColumnName="Last_Job_Apply_Date" />
+                <ScalarProperty Name="Last_Login_Date" ColumnName="Last_Login_Date" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

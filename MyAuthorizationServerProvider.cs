@@ -21,19 +21,24 @@ namespace WebApiAuthenticationToken
             {
                 var user = _repo.ValidateUser(context.UserName, context.Password);
                 var roleName = "";
+                var LastLoggedIn = "";
                 if (user == null)
                 {
                     context.SetError("invalid_grant", "Provided username and password is incorrect");
                     return;
                 }
+                int updateLogin = _repo.UpdateLastlogin(user.UserId);
                 using (var db = new TestDBEntities2())
                 {
                     var role = db.Roles.FirstOrDefault(x => x.RoleId == user.RoleId);
                     roleName = role.Rolename;
+                    var logDetails = db.User_Log.FirstOrDefault(x => x.UserId == user.UserId);
+                    LastLoggedIn = logDetails.Last_Login_Date.ToString();
                 }
+
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-                identity.AddClaim(new Claim("Email", user.UserEmail));
+                identity.AddClaim(new Claim("LastLogg", LastLoggedIn));
                 identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
 
                 var additionalData = new AuthenticationProperties(new Dictionary<string, string>
@@ -43,6 +48,9 @@ namespace WebApiAuthenticationToken
                     },
                     {
                         "username", user.UserName
+                    },
+                    {
+                        "LastLogg", LastLoggedIn
                     }
                 });
                 var token = new AuthenticationTicket(identity, additionalData);

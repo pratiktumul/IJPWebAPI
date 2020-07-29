@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="TestDBModel.JobOpening" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="TestDBModel.Role" Width="1.5" PointX="2.875" PointY="4.625" />
         <AssociationConnector Association="TestDBModel.FK_User_Roles" />
+        <EntityTypeShape EntityType="TestDBModel.User_Log" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="TestDBModel.FK_User_Log_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

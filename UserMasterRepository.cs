@@ -7,17 +7,39 @@ namespace WebApiAuthenticationToken
 {
     public class UserMasterRepository : IDisposable
     {
-        TestDBEntities2 context = new TestDBEntities2();
+        TestDBEntities2 db = new TestDBEntities2();
         public User ValidateUser(string username, string password)
         {
             var hash_password = Utils.HashPassword(password);
-            return context.Users.FirstOrDefault(user =>
+            return db.Users.FirstOrDefault(user =>
                         user.UserName.Equals(username, StringComparison.OrdinalIgnoreCase)
                         && user.UserPassword == hash_password);
         }
+        public int UpdateLastlogin(int userid)
+        {
+            User_Log user_Log = db.User_Log.FirstOrDefault(x => x.UserId == userid);
+            if (user_Log == null)
+            {
+                User_Log user = new User_Log()
+                {
+                    UserId = userid,
+                    Last_Login_Date = DateTime.Now.Date,
+                    Last_Job_Apply_Date = null
+                };
+                db.User_Log.Add(user);
+                db.SaveChanges();
+                return 1;
+            }
+            else
+            {
+                user_Log.Last_Login_Date = DateTime.Now.Date;
+                db.SaveChanges();
+                return 1;
+            }
+        }
         public void Dispose()
         {
-            context.Dispose();
+            db.Dispose();
         }
     }
 }

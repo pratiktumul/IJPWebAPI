@@ -203,6 +203,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RoleTestController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UserDashboardController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DbModel.Context.cs">
@@ -229,8 +230,10 @@
     <Compile Include="JobOpening.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppliedJobsViewModel.cs" />
     <Compile Include="Models\JobModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\UserDashboardViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="MyAuthorizationServerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -242,6 +245,9 @@
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserMasterRepository.cs" />
+    <Compile Include="User_Log.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

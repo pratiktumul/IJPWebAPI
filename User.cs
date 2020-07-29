@@ -30,5 +30,6 @@ namespace WebApiAuthenticationToken
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Demo> Demoes { get; set; }
         public virtual Role Role { get; set; }
+        public virtual User_Log User_Log { get; set; }
     }
 }
