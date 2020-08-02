@@ -30,5 +30,7 @@ namespace WebApiAuthenticationToken
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User_Log> User_Log { get; set; }
+        public virtual DbSet<tbl_Skill> tbl_Skill { get; set; }
+        public virtual DbSet<job_posts_skill_sets> job_posts_skill_sets { get; set; }
     }
 }

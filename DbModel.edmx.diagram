@@ -13,6 +13,10 @@
         <AssociationConnector Association="TestDBModel.FK_User_Roles" />
         <EntityTypeShape EntityType="TestDBModel.User_Log" Width="1.5" PointX="3" PointY="7" />
         <AssociationConnector Association="TestDBModel.FK_User_Log_User" />
+        <EntityTypeShape EntityType="TestDBModel.tbl_Skill" Width="1.5" PointX="5.375" PointY="5.25" />
+        <EntityTypeShape EntityType="TestDBModel.job_posts_skill_sets" Width="1.5" PointX="7.625" PointY="3.875" />
+        <AssociationConnector Association="TestDBModel.job_post_skill_set_job_post" />
+        <AssociationConnector Association="TestDBModel.job_post_skill_set_skill_set" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

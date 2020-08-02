@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobOpeningController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\JobSuggestionController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RoleTestController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -230,6 +231,9 @@
     <Compile Include="JobOpening.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="job_posts_skill_sets.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AppliedJobsViewModel.cs" />
     <Compile Include="Models\JobModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
@@ -241,6 +245,9 @@
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="tbl_Skill.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

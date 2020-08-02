@@ -13,5 +13,6 @@ namespace WebApiAuthenticationToken.Models
         public string Location { get; set; }
         public string JobType { get; set; }
         public int? TimeDiff { get; set; }
+        public string JobDescription { get; set; }
     }
 }

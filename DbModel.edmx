@@ -20,6 +20,15 @@
           <Property Name="Skill" Type="nvarchar" MaxLength="100" />
           <Property Name="UserId" Type="int" />
         </EntityType>
+        <EntityType Name="job_posts_skill_sets">
+          <Key>
+            <PropertyRef Name="skill_set_id" />
+            <PropertyRef Name="job_post_id" />
+          </Key>
+          <Property Name="skill_set_id" Type="int" Nullable="false" />
+          <Property Name="job_post_id" Type="int" Nullable="false" />
+          <Property Name="skill_level" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="JobOpening">
           <Key>
             <PropertyRef Name="JobId" />
@@ -30,6 +39,7 @@
           <Property Name="Location" Type="nvarchar" MaxLength="100" />
           <Property Name="JobType" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
+          <Property Name="JobDescription" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -37,6 +47,13 @@
           </Key>
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Rolename" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_Skill">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -93,10 +110,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="job_post_skill_set_job_post">
+          <End Role="JobOpening" Type="Self.JobOpening" Multiplicity="1" />
+          <End Role="job_posts_skill_sets" Type="Self.job_posts_skill_sets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOpening">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="job_posts_skill_sets">
+              <PropertyRef Name="job_post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_post_skill_set_skill_set">
+          <End Role="tbl_Skill" Type="Self.tbl_Skill" Multiplicity="1" />
+          <End Role="job_posts_skill_sets" Type="Self.job_posts_skill_sets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Skill">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="job_posts_skill_sets">
+              <PropertyRef Name="skill_set_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TestDBModelStoreContainer">
           <EntitySet Name="Demo" EntityType="Self.Demo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Skill" EntityType="Self.tbl_Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Log" EntityType="Self.User_Log" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Demo_User" Association="Self.FK_Demo_User">
@@ -110,6 +153,14 @@
           <AssociationSet Name="FK_User_Roles" Association="Self.FK_User_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="job_post_skill_set_job_post" Association="Self.job_post_skill_set_job_post">
+            <End Role="JobOpening" EntitySet="JobOpening" />
+            <End Role="job_posts_skill_sets" EntitySet="job_posts_skill_sets" />
+          </AssociationSet>
+          <AssociationSet Name="job_post_skill_set_skill_set" Association="Self.job_post_skill_set_skill_set">
+            <End Role="tbl_Skill" EntitySet="tbl_Skill" />
+            <End Role="job_posts_skill_sets" EntitySet="job_posts_skill_sets" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -176,6 +227,16 @@
             <End Role="User" EntitySet="Users" />
             <End Role="User_Log" EntitySet="User_Log" />
           </AssociationSet>
+          <EntitySet Name="tbl_Skill" EntityType="TestDBModel.tbl_Skill" />
+          <EntitySet Name="job_posts_skill_sets" EntityType="TestDBModel.job_posts_skill_sets" />
+          <AssociationSet Name="job_post_skill_set_job_post" Association="TestDBModel.job_post_skill_set_job_post">
+            <End Role="JobOpening" EntitySet="JobOpenings" />
+            <End Role="job_posts_skill_sets" EntitySet="job_posts_skill_sets" />
+          </AssociationSet>
+          <AssociationSet Name="job_post_skill_set_skill_set" Association="TestDBModel.job_post_skill_set_skill_set">
+            <End Role="tbl_Skill" EntitySet="tbl_Skill" />
+            <End Role="job_posts_skill_sets" EntitySet="job_posts_skill_sets" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobOpening">
           <Key>
@@ -187,6 +248,8 @@
           <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="JobType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="JobDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="job_posts_skill_sets" Relationship="TestDBModel.job_post_skill_set_job_post" FromRole="JobOpening" ToRole="job_posts_skill_sets" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -229,6 +292,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Skill">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="job_posts_skill_sets" Relationship="TestDBModel.job_post_skill_set_skill_set" FromRole="tbl_Skill" ToRole="job_posts_skill_sets" />
+        </EntityType>
+        <EntityType Name="job_posts_skill_sets">
+          <Key>
+            <PropertyRef Name="skill_set_id" />
+            <PropertyRef Name="job_post_id" />
+          </Key>
+          <Property Name="skill_set_id" Type="Int32" Nullable="false" />
+          <Property Name="job_post_id" Type="Int32" Nullable="false" />
+          <Property Name="skill_level" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="JobOpening" Relationship="TestDBModel.job_post_skill_set_job_post" FromRole="job_posts_skill_sets" ToRole="JobOpening" />
+          <NavigationProperty Name="tbl_Skill" Relationship="TestDBModel.job_post_skill_set_skill_set" FromRole="job_posts_skill_sets" ToRole="tbl_Skill" />
+        </EntityType>
+        <Association Name="job_post_skill_set_job_post">
+          <End Type="TestDBModel.JobOpening" Role="JobOpening" Multiplicity="1" />
+          <End Type="TestDBModel.job_posts_skill_sets" Role="job_posts_skill_sets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOpening">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="job_posts_skill_sets">
+              <PropertyRef Name="job_post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_post_skill_set_skill_set">
+          <End Type="TestDBModel.tbl_Skill" Role="tbl_Skill" Multiplicity="1" />
+          <End Type="TestDBModel.job_posts_skill_sets" Role="job_posts_skill_sets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Skill">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="job_posts_skill_sets">
+              <PropertyRef Name="skill_set_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -266,6 +372,7 @@
           <EntitySetMapping Name="JobOpenings">
             <EntityTypeMapping TypeName="TestDBModel.JobOpening">
               <MappingFragment StoreEntitySet="JobOpening">
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="JobType" ColumnName="JobType" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
@@ -289,6 +396,23 @@
                 <ScalarProperty Name="Last_Job_Apply_Date" ColumnName="Last_Job_Apply_Date" />
                 <ScalarProperty Name="Last_Login_Date" ColumnName="Last_Login_Date" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Skill">
+            <EntityTypeMapping TypeName="TestDBModel.tbl_Skill">
+              <MappingFragment StoreEntitySet="tbl_Skill">
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="job_posts_skill_sets">
+            <EntityTypeMapping TypeName="TestDBModel.job_posts_skill_sets">
+              <MappingFragment StoreEntitySet="job_posts_skill_sets">
+                <ScalarProperty Name="skill_level" ColumnName="skill_level" />
+                <ScalarProperty Name="job_post_id" ColumnName="job_post_id" />
+                <ScalarProperty Name="skill_set_id" ColumnName="skill_set_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

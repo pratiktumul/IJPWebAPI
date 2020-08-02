@@ -34,7 +34,8 @@ namespace WebApiAuthenticationToken.Controllers
                         CompanyName = model.CompanyName,
                         Location = model.Location,
                         JobType = model.JobType,
-                        CreateDate = DateTime.Now
+                        CreateDate = DateTime.Now,
+                        JobDescription = model.JobDescription
                     };
                     db.JobOpenings.Add(jobOpening);
                     db.SaveChanges();

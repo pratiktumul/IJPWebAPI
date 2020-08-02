@@ -12,21 +12,16 @@ namespace WebApiAuthenticationToken
     using System;
     using System.Collections.Generic;
     
-    public partial class JobOpening
+    public partial class tbl_Skill
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public JobOpening()
+        public tbl_Skill()
         {
             this.job_posts_skill_sets = new HashSet<job_posts_skill_sets>();
         }
     
-        public int JobId { get; set; }
-        public string JobTitle { get; set; }
-        public string CompanyName { get; set; }
-        public string Location { get; set; }
-        public string JobType { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public string JobDescription { get; set; }
+        public int SkillId { get; set; }
+        public string SkillName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<job_posts_skill_sets> job_posts_skill_sets { get; set; }
