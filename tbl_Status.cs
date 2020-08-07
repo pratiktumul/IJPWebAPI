@@ -12,26 +12,18 @@ namespace WebApiAuthenticationToken
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class tbl_Status
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public tbl_Status()
         {
-            this.Demoes = new HashSet<Demo>();
+            this.Users = new HashSet<User>();
         }
     
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string UserPassword { get; set; }
-        public string UserEmail { get; set; }
-        public string Fullname { get; set; }
-        public Nullable<int> RoleId { get; set; }
-        public Nullable<int> Status { get; set; }
+        public int StatusId { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Demo> Demoes { get; set; }
-        public virtual Role Role { get; set; }
-        public virtual User_Log User_Log { get; set; }
-        public virtual tbl_Status tbl_Status { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

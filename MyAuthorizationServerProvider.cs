@@ -22,10 +22,23 @@ namespace WebApiAuthenticationToken
                 var user = _repo.ValidateUser(context.UserName, context.Password);
                 var roleName = "";
                 var LastLoggedIn = "";
-                if (user == null)
+                if (user == null || (user.Status == 1 || user.Status == 2))
                 {
-                    context.SetError("invalid_grant", "Provided username and password is incorrect");
-                    return;
+                    if (user == null)
+                    {
+                        context.SetError("invalid_grant", "Provided username and password is incorrect");
+                        return;
+                    }
+                    else if (user.Status == 1)
+                    {
+                        context.SetError("invalid_grant", "Registration Request is not yet approved");
+                        return;
+                    }
+                    else
+                    {
+                        context.SetError("invalid_grant", "Registration Request is rejected");
+                        return;
+                    }
                 }
                 int updateLogin = _repo.UpdateLastlogin(user.UserId);
                 using (var db = new TestDBEntities2())

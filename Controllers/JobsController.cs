@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApiAuthenticationToken.Models;
 
 namespace WebApiAuthenticationToken.Controllers
 {
@@ -14,9 +15,23 @@ namespace WebApiAuthenticationToken.Controllers
         [Route("api/jobs/getalljobs")]
         public IHttpActionResult GetAllJobs()
         {
+            List<AdminJobs> jobs = new List<AdminJobs>();
             using (var db = new TestDBEntities2())
             {
-                return Ok(db.JobOpenings.ToList());
+                var list = db.JobOpenings.ToList();
+                foreach(var item in list)
+                {
+                    jobs.Add(new AdminJobs
+                    {
+                        JobId = item.JobId,
+                        JobTitle = item.JobTitle,
+                        Location = item.Location,
+                        CompanyName = item.CompanyName,
+                        JobType = item.JobType,
+                        CreateDate = (DateTime)item.CreateDate
+                    });
+                }
+                return Ok(jobs);
             }
         }
         [HttpPost]

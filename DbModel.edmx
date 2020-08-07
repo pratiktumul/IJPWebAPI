@@ -55,6 +55,13 @@
           <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SkillName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tbl_Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -65,6 +72,7 @@
           <Property Name="UserEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="Fullname" Type="nvarchar" MaxLength="100" />
           <Property Name="RoleId" Type="int" />
+          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="User_Log">
           <Key>
@@ -110,6 +118,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_tbl_Status">
+          <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="job_post_skill_set_job_post">
           <End Role="JobOpening" Type="Self.JobOpening" Multiplicity="1" />
           <End Role="job_posts_skill_sets" Type="Self.job_posts_skill_sets" Multiplicity="*" />
@@ -140,6 +160,7 @@
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Skill" EntityType="Self.tbl_Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Log" EntityType="Self.User_Log" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Demo_User" Association="Self.FK_Demo_User">
@@ -152,6 +173,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_User_Roles" Association="Self.FK_User_Roles">
             <End Role="Roles" EntitySet="Roles" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_tbl_Status" Association="Self.FK_User_tbl_Status">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="job_post_skill_set_job_post" Association="Self.job_post_skill_set_job_post">
@@ -196,6 +221,8 @@
           <Property Name="RoleId" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="TestDBModel.FK_User_Roles" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="User_Log" Relationship="TestDBModel.FK_User_Log_User" FromRole="User" ToRole="User_Log" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="tbl_Status" Relationship="TestDBModel.FK_User_tbl_Status" FromRole="User" ToRole="tbl_Status" />
         </EntityType>
         <Association Name="FK_Demo_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -236,6 +263,11 @@
           <AssociationSet Name="job_post_skill_set_skill_set" Association="TestDBModel.job_post_skill_set_skill_set">
             <End Role="tbl_Skill" EntitySet="tbl_Skill" />
             <End Role="job_posts_skill_sets" EntitySet="job_posts_skill_sets" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Status" EntityType="TestDBModel.tbl_Status" />
+          <AssociationSet Name="FK_User_tbl_Status" Association="TestDBModel.FK_User_tbl_Status">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
+            <End Role="User" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobOpening">
@@ -335,6 +367,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="TestDBModel.FK_User_tbl_Status" FromRole="tbl_Status" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_tbl_Status">
+          <End Type="TestDBModel.tbl_Status" Role="tbl_Status" Multiplicity="0..1" />
+          <End Type="TestDBModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -360,6 +412,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TestDBModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -413,6 +466,14 @@
                 <ScalarProperty Name="skill_level" ColumnName="skill_level" />
                 <ScalarProperty Name="job_post_id" ColumnName="job_post_id" />
                 <ScalarProperty Name="skill_set_id" ColumnName="skill_set_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Status">
+            <EntityTypeMapping TypeName="TestDBModel.tbl_Status">
+              <MappingFragment StoreEntitySet="tbl_Status">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

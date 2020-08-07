@@ -28,7 +28,8 @@ namespace WebApiAuthenticationToken.Controllers
                     UserEmail = user.UserEmail,
                     UserPassword = Utils.HashPassword(user.UserPassword),
                     Fullname = user.Fullname,
-                    RoleId = user.RoleId
+                    RoleId = user.RoleId,
+                    Status = 1
                 };
 
                 db.Users.Add(model);

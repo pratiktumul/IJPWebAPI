@@ -63,16 +63,20 @@ namespace WebApiAuthenticationToken.Controllers
 
             var UserId = UserClaims();
             var userApplication = db.Demoes.FirstOrDefault(x => x.UserId == UserId);
-            string[] SkillSet = userApplication.Skill.Split(',');
-            List<int> SkillId = new List<int>();
-            foreach (var skill in SkillSet)
+            if (userApplication != null)
             {
-                var SkillDetails = db.tbl_Skill.FirstOrDefault(x => x.SkillName.Equals(skill, StringComparison.OrdinalIgnoreCase));
-                SkillId.Add(SkillDetails.SkillId);
+                string[] SkillSet = userApplication.Skill.Split(',');
+                List<int> SkillId = new List<int>();
+                foreach (var skill in SkillSet)
+                {
+                    var SkillDetails = db.tbl_Skill.FirstOrDefault(x => x.SkillName.Equals(skill, StringComparison.OrdinalIgnoreCase));
+                    SkillId.Add(SkillDetails.SkillId);
+                }
+                JobList = Find(SkillId);
+                List<JobModel> distinct = JobList.DistinctBy(x => x.JobId).ToList();
+                return Ok(distinct);
             }
-            JobList = Find(SkillId);
-            List<JobModel> distinct = JobList.DistinctBy(x=>x.JobId).ToList();
-            return Ok(distinct);
+            return NotFound();
         }
     }
 }
