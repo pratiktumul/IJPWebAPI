@@ -201,6 +201,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RequestApprovalController.cs" />
     <Compile Include="Controllers\RoleTestController.cs" />
+    <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserDashboardController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />

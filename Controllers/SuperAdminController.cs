@@ -3,27 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
 using WebApiAuthenticationToken.Mail;
 using WebApiAuthenticationToken.Models;
 
 namespace WebApiAuthenticationToken.Controllers
 {
-    public class RequestApprovalController : ApiController
+    public class SuperAdminController : ApiController
     {
         readonly TestDBEntities2 db;
         readonly EmailMessages emailMessages;
-        public RequestApprovalController()
+        public SuperAdminController()
         {
             db = new TestDBEntities2();
             emailMessages = new EmailMessages();
         }
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Superadmin")]
         public IHttpActionResult GetAll()
         {
-            var RequestList = db.Users.Where(x => x.Status == 1 && x.RoleId == 2).ToList();
+            var RequestList = db.Users.Where(x => x.Status == 1 && x.RoleId == 1).ToList();
 
             List<UserApprovalViewModel> list = new List<UserApprovalViewModel>();
 
@@ -43,7 +42,7 @@ namespace WebApiAuthenticationToken.Controllers
             return Ok(list);
         }
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Superadmin")]
         public IHttpActionResult PutRequest(int id, RegisterUpdateModel model)
         {
             var UserDetails = db.Users.FirstOrDefault(x => x.UserId == id);
@@ -51,7 +50,7 @@ namespace WebApiAuthenticationToken.Controllers
             {
                 UserDetails.Status = Convert.ToInt32(model.status);
                 db.SaveChanges();
-                emailMessages.SendEmail(UserDetails.Fullname, model.status);
+                //emailMessages.SendEmail(UserDetails.Fullname, model.status);
                 return Ok();
             }
             return NotFound();
