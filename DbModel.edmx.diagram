@@ -19,6 +19,8 @@
         <AssociationConnector Association="TestDBModel.job_post_skill_set_skill_set" />
         <EntityTypeShape EntityType="TestDBModel.tbl_Status" Width="1.5" PointX="0.75" PointY="7.25" />
         <AssociationConnector Association="TestDBModel.FK_User_tbl_Status" />
+        <EntityTypeShape EntityType="TestDBModel.User_Image" Width="1.5" PointX="3" PointY="10.25" />
+        <AssociationConnector Association="TestDBModel.FK_User_Image_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

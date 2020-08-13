@@ -4,18 +4,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
+using WebApiAuthenticationToken.Models;
 
 namespace WebApiAuthenticationToken.Mail
 {
     public class EmailMessages
     {
-        public bool SendEmail(string Name, string Status)
+        public bool SendEmail(string Name, RegisterUpdateModel model, string email)
         {
-            if (Status == "3")
+            if (model.status == "3")
             {
                 string subject = "Registration Request Approved";
                 string body = "Dear " + Name + ",<br/><br/>Your registration request has been approved. You can now login and apply for jobs.<br/><br/>Regards,<br/>GyanSys";
-                string to = "pratiktumul24@gmail.com";
+                string to = email;
 
                 MailMessage mm = new MailMessage
                 {
@@ -31,7 +32,7 @@ namespace WebApiAuthenticationToken.Mail
                     UseDefaultCredentials = false,
                     Port = 587,
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "***")
+                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "s/HD123gs")
                 };
                 client.Send(mm);
 

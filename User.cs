@@ -18,6 +18,7 @@ namespace WebApiAuthenticationToken
         public User()
         {
             this.Demoes = new HashSet<Demo>();
+            this.User_Image = new HashSet<User_Image>();
         }
     
         public int UserId { get; set; }
@@ -33,5 +34,7 @@ namespace WebApiAuthenticationToken
         public virtual Role Role { get; set; }
         public virtual User_Log User_Log { get; set; }
         public virtual tbl_Status tbl_Status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_Image> User_Image { get; set; }
     }
 }

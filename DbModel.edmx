@@ -74,6 +74,14 @@
           <Property Name="RoleId" Type="int" />
           <Property Name="Status" Type="int" />
         </EntityType>
+        <EntityType Name="User_Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserImage" Type="image" Nullable="false" />
+        </EntityType>
         <EntityType Name="User_Log">
           <Key>
             <PropertyRef Name="UserId" />
@@ -90,6 +98,18 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Demo">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Image_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Image" Type="Self.User_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="User_Image">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -162,10 +182,15 @@
           <EntitySet Name="tbl_Skill" EntityType="Self.tbl_Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Image" EntityType="Self.User_Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Log" EntityType="Self.User_Log" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Demo_User" Association="Self.FK_Demo_User">
             <End Role="User" EntitySet="User" />
             <End Role="Demo" EntitySet="Demo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Image_User" Association="Self.FK_User_Image_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Image" EntitySet="User_Image" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Log_User" Association="Self.FK_User_Log_User">
             <End Role="User" EntitySet="User" />
@@ -223,6 +248,7 @@
           <NavigationProperty Name="User_Log" Relationship="TestDBModel.FK_User_Log_User" FromRole="User" ToRole="User_Log" />
           <Property Name="Status" Type="Int32" />
           <NavigationProperty Name="tbl_Status" Relationship="TestDBModel.FK_User_tbl_Status" FromRole="User" ToRole="tbl_Status" />
+          <NavigationProperty Name="User_Image" Relationship="TestDBModel.FK_User_Image_User" FromRole="User" ToRole="User_Image" />
         </EntityType>
         <Association Name="FK_Demo_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -268,6 +294,11 @@
           <AssociationSet Name="FK_User_tbl_Status" Association="TestDBModel.FK_User_tbl_Status">
             <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="User_Image" EntityType="TestDBModel.User_Image" />
+          <AssociationSet Name="FK_User_Image_User" Association="TestDBModel.FK_User_Image_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_Image" EntitySet="User_Image" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobOpening">
@@ -387,6 +418,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User_Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserImage" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="TestDBModel.FK_User_Image_User" FromRole="User_Image" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Image_User">
+          <End Type="TestDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="TestDBModel.User_Image" Role="User_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="User_Image">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -474,6 +526,15 @@
               <MappingFragment StoreEntitySet="tbl_Status">
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Image">
+            <EntityTypeMapping TypeName="TestDBModel.User_Image">
+              <MappingFragment StoreEntitySet="User_Image">
+                <ScalarProperty Name="UserImage" ColumnName="UserImage" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

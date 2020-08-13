@@ -51,7 +51,7 @@ namespace WebApiAuthenticationToken.Controllers
             {
                 UserDetails.Status = Convert.ToInt32(model.status);
                 db.SaveChanges();
-                emailMessages.SendEmail(UserDetails.Fullname, model.status);
+                emailMessages.SendEmail(UserDetails.Fullname, model, UserDetails.UserEmail);
                 return Ok();
             }
             return NotFound();
