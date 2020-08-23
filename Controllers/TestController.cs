@@ -11,7 +11,24 @@ namespace WebApiAuthenticationToken.Controllers
 {
     public class TestController : ApiController
     {
-        [Authorize]
+        
+        [HttpPut]
+        [Route("api/Test/Expire")]
+        public IHttpActionResult Expire([FromUri]int id,[FromUri] bool e)
+        {
+            using(var db = new TestDBEntities2())
+            {
+                var jobDetails = db.JobOpenings.FirstOrDefault(x => x.JobId == id);
+                if(jobDetails != null)
+                {
+                    jobDetails.IsExpired = e;
+                    db.SaveChanges();
+                    return Ok();
+                }
+                return NotFound();
+            }
+        }
+        /*[Authorize]
         [HttpGet]
         [Route("api/test")]
         public UserModel GetUserClaims()
@@ -23,7 +40,7 @@ namespace WebApiAuthenticationToken.Controllers
                 UserName = identity.Name
             };
             return model;
-        }
+        }*/
         //This resource is only For Admin and SuperAdmin role
         /*[Authorize(Roles = "SuperAdmin, Admin")]
         [HttpGet]

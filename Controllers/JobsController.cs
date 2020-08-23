@@ -15,21 +15,25 @@ namespace WebApiAuthenticationToken.Controllers
         [Route("api/jobs/getalljobs")]
         public IHttpActionResult GetAllJobs()
         {
+            DateTime TodaysDate = DateTime.Now;
             List<AdminJobs> jobs = new List<AdminJobs>();
             using (var db = new TestDBEntities2())
             {
-                var list = db.JobOpenings.ToList();
-                foreach(var item in list)
+                var list = db.JobOpenings.Where(x => x.IsExpired != true).ToList();
+                foreach (var item in list)
                 {
-                    jobs.Add(new AdminJobs
+                    if (TodaysDate <= item.LastApplyDate && item.Vacancy != 0)
                     {
-                        JobId = item.JobId,
-                        JobTitle = item.JobTitle,
-                        Location = item.Location,
-                        CompanyName = item.CompanyName,
-                        JobType = item.JobType,
-                        CreateDate = (DateTime)item.CreateDate
-                    });
+                        jobs.Add(new AdminJobs
+                        {
+                            JobId = item.JobId,
+                            JobTitle = item.JobTitle,
+                            Location = item.Location,
+                            CompanyName = item.CompanyName,
+                            JobType = item.JobType,
+                            CreateDate = (DateTime)item.CreateDate
+                        });
+                    }
                 }
                 return Ok(jobs);
             }
@@ -50,7 +54,11 @@ namespace WebApiAuthenticationToken.Controllers
                         Location = model.Location,
                         JobType = model.JobType,
                         CreateDate = DateTime.Now,
-                        JobDescription = model.JobDescription
+                        JobDescription = model.JobDescription,
+                        IsExpired = false,
+                        LastApplyDate = model.LastApplyDate,
+                        Vacancy = model.Vacancy,
+                        Salary = model.Salary
                     };
                     db.JobOpenings.Add(jobOpening);
                     db.SaveChanges();
@@ -59,17 +67,17 @@ namespace WebApiAuthenticationToken.Controllers
             }
             return BadRequest("Check the model state");
         }
-        [HttpDelete]
+        [HttpPut]
         [Authorize(Roles = "Admin")]
-        //[Route("api/jobs/deletejob")]
-        public IHttpActionResult DeleteJob(int id)
+        //[Route("api/jobs")]
+        public IHttpActionResult PutExpire(int id, IsExpired model)
         {
             using (var db = new TestDBEntities2())
             {
                 var jobDetails = db.JobOpenings.FirstOrDefault(x => x.JobId == id);
                 if (jobDetails != null)
                 {
-                    db.JobOpenings.Remove(jobDetails);
+                    jobDetails.IsExpired = model.isExpired;
                     db.SaveChanges();
                     return Ok();
                 }

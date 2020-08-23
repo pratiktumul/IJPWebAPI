@@ -19,6 +19,7 @@
           <Property Name="Resume" Type="varchar" MaxLength="100" />
           <Property Name="Skill" Type="nvarchar" MaxLength="100" />
           <Property Name="UserId" Type="int" />
+          <Property Name="JobId" Type="int" />
         </EntityType>
         <EntityType Name="job_posts_skill_sets">
           <Key>
@@ -40,6 +41,10 @@
           <Property Name="JobType" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="JobDescription" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsExpired" Type="bit" />
+          <Property Name="Vacancy" Type="int" />
+          <Property Name="LastApplyDate" Type="date" />
+          <Property Name="Salary" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -90,6 +95,18 @@
           <Property Name="Last_Login_Date" Type="date" Nullable="false" />
           <Property Name="Last_Job_Apply_Date" Type="date" />
         </EntityType>
+        <Association Name="FK_Demo_JobOpening">
+          <End Role="JobOpening" Type="Self.JobOpening" Multiplicity="0..1" />
+          <End Role="Demo" Type="Self.Demo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOpening">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="Demo">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Demo_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Demo" Type="Self.Demo" Multiplicity="*" />
@@ -184,6 +201,10 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Image" EntityType="Self.User_Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Log" EntityType="Self.User_Log" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Demo_JobOpening" Association="Self.FK_Demo_JobOpening">
+            <End Role="JobOpening" EntitySet="JobOpening" />
+            <End Role="Demo" EntitySet="Demo" />
+          </AssociationSet>
           <AssociationSet Name="FK_Demo_User" Association="Self.FK_Demo_User">
             <End Role="User" EntitySet="User" />
             <End Role="Demo" EntitySet="Demo" />
@@ -232,6 +253,8 @@
           <Property Name="Skill" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" />
           <NavigationProperty Name="User" Relationship="Self.FK_Demo_User" FromRole="Demo" ToRole="User" />
+          <Property Name="JobId" Type="Int32" />
+          <NavigationProperty Name="JobOpening" Relationship="TestDBModel.FK_Demo_JobOpening" FromRole="Demo" ToRole="JobOpening" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -300,6 +323,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="User_Image" EntitySet="User_Image" />
           </AssociationSet>
+          <AssociationSet Name="FK_Demo_JobOpening" Association="TestDBModel.FK_Demo_JobOpening">
+            <End Role="JobOpening" EntitySet="JobOpenings" />
+            <End Role="Demo" EntitySet="Demoes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobOpening">
           <Key>
@@ -313,6 +340,11 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="JobDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="job_posts_skill_sets" Relationship="TestDBModel.job_post_skill_set_job_post" FromRole="JobOpening" ToRole="job_posts_skill_sets" />
+          <NavigationProperty Name="Demoes" Relationship="TestDBModel.FK_Demo_JobOpening" FromRole="JobOpening" ToRole="Demo" />
+          <Property Name="IsExpired" Type="Boolean" />
+          <Property Name="Vacancy" Type="Int32" />
+          <Property Name="LastApplyDate" Type="DateTime" Precision="0" />
+          <Property Name="Salary" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -439,6 +471,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Demo_JobOpening">
+          <End Type="TestDBModel.JobOpening" Role="JobOpening" Multiplicity="0..1" />
+          <End Type="TestDBModel.Demo" Role="Demo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOpening">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="Demo">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -448,6 +492,7 @@
           <EntitySetMapping Name="Demoes">
             <EntityTypeMapping TypeName="TestDBModel.Demo">
               <MappingFragment StoreEntitySet="Demo">
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Ename" ColumnName="Ename" />
                 <ScalarProperty Name="Curloc" ColumnName="Curloc" />
@@ -477,6 +522,10 @@
           <EntitySetMapping Name="JobOpenings">
             <EntityTypeMapping TypeName="TestDBModel.JobOpening">
               <MappingFragment StoreEntitySet="JobOpening">
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="LastApplyDate" ColumnName="LastApplyDate" />
+                <ScalarProperty Name="Vacancy" ColumnName="Vacancy" />
+                <ScalarProperty Name="IsExpired" ColumnName="IsExpired" />
                 <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="JobType" ColumnName="JobType" />

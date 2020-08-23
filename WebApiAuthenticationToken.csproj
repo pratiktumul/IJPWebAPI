@@ -237,7 +237,9 @@
     <Compile Include="Mail\EmailMessages.cs" />
     <Compile Include="Models\AdminJobs.cs" />
     <Compile Include="Models\AppliedJobsViewModel.cs" />
+    <Compile Include="Models\IsExpired.cs" />
     <Compile Include="Models\JobModel.cs" />
+    <Compile Include="Models\JobViewModel.cs" />
     <Compile Include="Models\RegisterUpdateModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\UserApprovalViewModel.cs" />

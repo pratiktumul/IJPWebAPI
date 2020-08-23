@@ -33,23 +33,30 @@ namespace WebApiAuthenticationToken.Controllers
         }
         private List<JobModel> Find(List<int> list)
         {
+            DateTime TodaysDate = DateTime.Now;
             List<JobModel> JobList = new List<JobModel>();
             foreach (var item in list)
             {
                 var TotalJobs = db.job_posts_skill_sets.Where(x => x.skill_set_id == item).Select(x => x.job_post_id).ToList();
                 foreach (var job in TotalJobs)
                 {
-                    var JobDetail = db.JobOpenings.FirstOrDefault(x => x.JobId == job);
-                    int timediff = FindTimeDiff(JobDetail.CreateDate);
-                    JobList.Add(new JobModel
+                    var JobDetail = db.JobOpenings.FirstOrDefault(x => x.JobId == job && x.IsExpired != true);
+                    if (JobDetail != null)
                     {
-                        JobId = JobDetail.JobId,
-                        JobTitle = JobDetail.JobTitle,
-                        Location = JobDetail.Location,
-                        CompanyName = JobDetail.CompanyName,
-                        JobType = JobDetail.JobType,
-                        TimeDiff = timediff
-                    });
+                        if (TodaysDate <= JobDetail.LastApplyDate && JobDetail.Vacancy != 0)
+                        {
+                            int timediff = FindTimeDiff(JobDetail.CreateDate);
+                            JobList.Add(new JobModel
+                            {
+                                JobId = JobDetail.JobId,
+                                JobTitle = JobDetail.JobTitle,
+                                Location = JobDetail.Location,
+                                CompanyName = JobDetail.CompanyName,
+                                JobType = JobDetail.JobType,
+                                TimeDiff = timediff
+                            });
+                        }
+                    }
                 }
             }
             return JobList;

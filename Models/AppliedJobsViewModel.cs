@@ -14,5 +14,6 @@ namespace WebApiAuthenticationToken.Models
         public string About { get; set; }
         public string Project { get; set; }
         public string Skill { get; set; }
+        public string CompanyName { get; set; }
     }
 }

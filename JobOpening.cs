@@ -18,6 +18,7 @@ namespace WebApiAuthenticationToken
         public JobOpening()
         {
             this.job_posts_skill_sets = new HashSet<job_posts_skill_sets>();
+            this.Demoes = new HashSet<Demo>();
         }
     
         public int JobId { get; set; }
@@ -27,8 +28,14 @@ namespace WebApiAuthenticationToken
         public string JobType { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string JobDescription { get; set; }
+        public Nullable<bool> IsExpired { get; set; }
+        public Nullable<int> Vacancy { get; set; }
+        public Nullable<System.DateTime> LastApplyDate { get; set; }
+        public Nullable<int> Salary { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<job_posts_skill_sets> job_posts_skill_sets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Demo> Demoes { get; set; }
     }
 }

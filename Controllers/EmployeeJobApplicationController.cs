@@ -20,6 +20,16 @@ namespace WebApiAuthenticationToken.Controllers
             var username = identity.Name;
             return username;
         }
+        private bool UpdateVacancy(int JobId)
+        {
+            using(var db = new TestDBEntities2())
+            {
+                var JobDetails = db.JobOpenings.FirstOrDefault(x => x.JobId == JobId);
+                JobDetails.Vacancy -= 1;
+                db.SaveChanges();
+                return true;
+            }
+        }
         [Authorize]
         [HttpPost]
         [Route("api/EmployeeJobApplication")]
@@ -44,6 +54,7 @@ namespace WebApiAuthenticationToken.Controllers
                 int year = Convert.ToInt32(y);
                 var m = httpRequest["Month"];
                 int month = Convert.ToInt32(m);
+                int JobId = Convert.ToInt32(httpRequest["JobId"]);
                 Demo demo = new Demo()
                 {
                     Ename = httpRequest["Ename"],
@@ -54,10 +65,12 @@ namespace WebApiAuthenticationToken.Controllers
                     About = httpRequest["About"],
                     Project = httpRequest["Project"],
                     Resume = filePath,
-                    UserId = userId
+                    UserId = userId,
+                    JobId = Convert.ToInt32(JobId)
                 };
                 db.Demoes.Add(demo);
                 db.SaveChanges();
+                bool flag = UpdateVacancy(JobId);
             }
             return Ok();
         }

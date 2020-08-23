@@ -21,6 +21,7 @@
         <AssociationConnector Association="TestDBModel.FK_User_tbl_Status" />
         <EntityTypeShape EntityType="TestDBModel.User_Image" Width="1.5" PointX="3" PointY="10.25" />
         <AssociationConnector Association="TestDBModel.FK_User_Image_User" />
+        <AssociationConnector Association="TestDBModel.FK_Demo_JobOpening" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

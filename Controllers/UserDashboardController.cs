@@ -42,21 +42,30 @@ namespace WebApiAuthenticationToken.Controllers
         public IHttpActionResult GetJobsApplied(string name)
         {
             var userDetails = db.Users.FirstOrDefault(x => x.UserName == name);
+            List<AppliedJobsViewModel> list = new List<AppliedJobsViewModel>();
             if (userDetails != null)
             {
                 var userId = userDetails.UserId;
 
-                var allJobs = db.Demoes.Where(x => x.UserId == userId).Select(x => new AppliedJobsViewModel()
+                var allJobs = db.Demoes.Where(x => x.UserId == userId).ToList();
+                foreach(var item in allJobs)
                 {
-                    Id = x.Id,
-                    Ename = x.Ename,
-                    Curloc = x.Curloc,
-                    Experience = x.Year + " Years " + x.Month + " Months",
-                    About = x.About,
-                    Project = x.Project,
-                    Skill = x.Skill
-                }).ToList();
-                return Ok(allJobs);
+                    var jobid = item.JobId;
+                    var jobOpening = db.JobOpenings.FirstOrDefault(x=>x.JobId == jobid);
+                    var companyName = jobOpening.CompanyName;
+                    list.Add(new AppliedJobsViewModel
+                    {
+                        Id = item.Id,
+                        Ename = item.Ename,
+                        Curloc = item.Curloc,
+                        Experience = item.Year + " Years " + item.Month + " Months",
+                        About = item.About,
+                        Project = item.Project,
+                        Skill = item.Skill,
+                        CompanyName = companyName
+                    });
+                }
+                return Ok(list);
             }
             return NotFound();
         }
