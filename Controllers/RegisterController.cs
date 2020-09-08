@@ -5,39 +5,34 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebApiAuthenticationToken.Models;
+using WebApiAuthenticationToken.Repository;
 
 namespace WebApiAuthenticationToken.Controllers
 {
     public class RegisterController : ApiController
     {
-        public IHttpActionResult Post(UserModel user)
+        readonly RegisterRepo register;
+        public RegisterController()
         {
-            using (var db = new TestDBEntities2())
+            register = new RegisterRepo(); // Create instance of RegisterRepo class
+        }
+
+        // HTTP Post method to add a new user into the system
+        public IHttpActionResult Post(UserModel newUser)
+        {
+            if (ModelState.IsValid)
             {
-
-                var userDetail = db.Users.FirstOrDefault(x => x.UserName.Equals(user.UserName, StringComparison.OrdinalIgnoreCase));
-
-                if (userDetail != null)
+                bool userDetail = register.RegisterNewUser(newUser);
+                if (userDetail == false) // if the username is already taken by someone then return bad request
                 {
                     return BadRequest("Username Taken, Please try another username");
                 }
-
-                User model = new User()
-                {
-                    UserName = user.UserName,
-                    UserEmail = user.UserEmail,
-                    UserPassword = Utils.HashPassword(user.UserPassword),
-                    Fullname = user.Fullname,
-                    RoleId = user.RoleId,
-                    Status = 1
-                };
-
-                db.Users.Add(model);
-                db.SaveChanges();
+                return Ok();
             }
-            return Ok();
+            return BadRequest();
         }
-        [HttpPut]
+
+        /*[HttpPut]
         public IHttpActionResult PutUpdatePassword([FromUri] int id, [FromBody] UserModel model)
         {
             if (ModelState.IsValid)
@@ -52,6 +47,6 @@ namespace WebApiAuthenticationToken.Controllers
                 }
             }
             return BadRequest();
-        }
+        }*/
     }
 }

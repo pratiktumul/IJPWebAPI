@@ -7,54 +7,35 @@ using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
 using WebApiAuthenticationToken.Mail;
 using WebApiAuthenticationToken.Models;
+using WebApiAuthenticationToken.Repository;
 
 namespace WebApiAuthenticationToken.Controllers
 {
+    // All methods in the controller is accessible by only Admin Role
     public class RequestApprovalController : ApiController
     {
-        readonly TestDBEntities2 db;
-        readonly EmailMessages emailMessages;
+        readonly RequestApprovalRepo requestApprovalRepo;
         public RequestApprovalController()
         {
-            db = new TestDBEntities2();
-            emailMessages = new EmailMessages();
+            requestApprovalRepo = new RequestApprovalRepo();
         }
+
+        //This HTTP Get method return a list of all registration request
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult GetAll()
         {
-            var RequestList = db.Users.Where(x => x.Status == 1 && x.RoleId == 2).ToList();
-
-            List<UserApprovalViewModel> list = new List<UserApprovalViewModel>();
-
-            foreach (var items in RequestList)
-            {
-                var Role = db.Roles.FirstOrDefault(x => x.RoleId == items.RoleId);
-                var Rolename = Role.Rolename;
-                list.Add(new UserApprovalViewModel
-                {
-                    UserId = items.UserId,
-                    UserName = items.UserName,
-                    Fullname = items.Fullname,
-                    UserEmail = items.UserEmail,
-                    RoleName = Rolename
-                });
-            }
-            return Ok(list);
+            List<UserApprovalViewModel> response = requestApprovalRepo.GetAllRegistrationRequest();
+            return Ok(response);
         }
+
+        // This HTTP Put method changes the registration status for a given user id
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public IHttpActionResult PutRequest(int id, RegisterUpdateModel model)
+        public IHttpActionResult PutRequest(int id, RegisterUpdateModel status)
         {
-            var UserDetails = db.Users.FirstOrDefault(x => x.UserId == id);
-            if (UserDetails != null)
-            {
-                UserDetails.Status = Convert.ToInt32(model.status);
-                db.SaveChanges();
-                emailMessages.SendEmail(UserDetails.Fullname, model, UserDetails.UserEmail);
-                return Ok();
-            }
-            return NotFound();
+            bool IsSuccess = requestApprovalRepo.ChangeStatus(id, status);
+            return IsSuccess ? (IHttpActionResult)Ok() : (IHttpActionResult)NotFound();
         }
     }
 }

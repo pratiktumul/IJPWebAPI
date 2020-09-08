@@ -76,7 +76,6 @@ namespace WebApiAuthenticationToken
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
-
             return Task.FromResult<object>(null);
         }
     }

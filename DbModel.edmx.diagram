@@ -5,9 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="548898fe8eca460f8f7abea9a89c86a2" Name="Diagram1">
-        <EntityTypeShape EntityType="TestDBModel.Demo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TestDBModel.User" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <AssociationConnector Association="TestDBModel.FK_Demo_User" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TestDBModel.JobOpening" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="TestDBModel.Role" Width="1.5" PointX="2.875" PointY="4.625" />
         <AssociationConnector Association="TestDBModel.FK_User_Roles" />
@@ -21,7 +19,10 @@
         <AssociationConnector Association="TestDBModel.FK_User_tbl_Status" />
         <EntityTypeShape EntityType="TestDBModel.User_Image" Width="1.5" PointX="3" PointY="10.25" />
         <AssociationConnector Association="TestDBModel.FK_User_Image_User" />
-        <AssociationConnector Association="TestDBModel.FK_Demo_JobOpening" />
+        <EntityTypeShape EntityType="TestDBModel.JobApplication" Width="1.5" PointX="9.75" PointY="0.5" />
+        <AssociationConnector Association="TestDBModel.FK_Demo_JobOpening1" />
+        <AssociationConnector Association="TestDBModel.FK_Demo_User1" />
+        <AssociationConnector Association="TestDBModel.FK_JobApplication_tbl_Status" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

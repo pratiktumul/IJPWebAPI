@@ -1,61 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using WebApiAuthenticationToken.Models;
+using WebApiAuthenticationToken.Repository;
 
 namespace WebApiAuthenticationToken.Controllers
 {
     public class EmployeeJobApplicationController : ApiController
     {
+        readonly UserClaimsRepo userClaims;
+        private EmployeeJobApplicationController()
+        {
+            userClaims = new UserClaimsRepo();
+        }
 
-        private string UserClaims()
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            var username = identity.Name;
-            return username;
-        }
-        private bool UpdateVacancy(int JobId)
-        {
-            using(var db = new TestDBEntities2())
-            {
-                var JobDetails = db.JobOpenings.FirstOrDefault(x => x.JobId == JobId);
-                JobDetails.Vacancy -= 1;
-                db.SaveChanges();
-                return true;
-            }
-        }
-        [Authorize]
+        // post method to save the job application in demos table(job application) using HTTP Context class
+        [Authorize(Roles = "User")]
         [HttpPost]
         [Route("api/EmployeeJobApplication")]
         public IHttpActionResult PostDemo()
         {
-            var httpRequest = HttpContext.Current.Request;
-            var postedFile = httpRequest.Files["Resume"];
-            string fileName = new string(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
-            var filePath = HttpContext.Current.Server.MapPath("~/Resume/" + fileName);
-            postedFile.SaveAs(filePath);
-
+            var userId = userClaims.GetUserClaims((ClaimsIdentity)User.Identity); // calling UserClaims funtion to get the username to get the userid
             using (var db = new TestDBEntities2())
             {
-                var username = UserClaims();
+                var httpRequest = HttpContext.Current.Request; // creating an instance of current request of HTTP Context class 
+                int JobId = Convert.ToInt32(httpRequest["JobId"]); // JobID in DB is in int format but HTTP request will have it as string: conversion from string to int
 
-                var userDetails = db.Users.FirstOrDefault(x => x.UserName == username);
+                var IsTrue = db.JobApplications.Any(x => x.UserId == userId && x.JobId == JobId);
+                if (IsTrue != false)
+                {
+                    return BadRequest("Sorry, You Have Already Applied For This Job");
+                }
+                var postedFile = httpRequest.Files["Resume"]; // fetching the file posted by user from HTTP request
+                string fileName = new string(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName); // Creating unique filename for each file
+                var filePath = HttpContext.Current.Server.MapPath("~/Resume/" + fileName);
+                postedFile.SaveAs(filePath); // Save the file in specified path
 
-                var userId = userDetails.UserId;
+                var YearFromRequest = httpRequest["Year"]; // Year in DB is in int format but HTTP request will have it as string 
+                int year = Convert.ToInt32(YearFromRequest); // conversion from string to int
+                var MonthFromRequest = httpRequest["Month"]; // Month in DB is in int format but HTTP request will have it as string
+                int month = Convert.ToInt32(MonthFromRequest); // conversion from string to int
 
-                var y = httpRequest["Year"];
-                int year = Convert.ToInt32(y);
-                var m = httpRequest["Month"];
-                int month = Convert.ToInt32(m);
-                int JobId = Convert.ToInt32(httpRequest["JobId"]);
-                Demo demo = new Demo()
+                JobApplication NewJobApplication = new JobApplication()
                 {
                     Ename = httpRequest["Ename"],
                     Curloc = httpRequest["Curloc"],
@@ -66,34 +56,25 @@ namespace WebApiAuthenticationToken.Controllers
                     Project = httpRequest["Project"],
                     Resume = filePath,
                     UserId = userId,
-                    JobId = Convert.ToInt32(JobId)
+                    JobId = Convert.ToInt32(JobId),
+                    Status = 1,
+                    InterviewDate = null
                 };
-                db.Demoes.Add(demo);
+                db.JobApplications.Add(NewJobApplication);
                 db.SaveChanges();
-                bool flag = UpdateVacancy(JobId);
+                return Ok();
             }
-            return Ok();
         }
+
+        // get method to get user's details for profile component
         [Authorize]
         [HttpGet]
         [Route("api/EmployeeJobApplication")]
         public IHttpActionResult GetUserDetails()
         {
-            using (var db = new TestDBEntities2())
-            {
-                var username = UserClaims();
-
-                var userDetails = db.Users.FirstOrDefault(x => x.UserName == username);
-
-                UserModel model = new UserModel()
-                {
-                    UserEmail = userDetails.UserEmail,
-                    UserName = userDetails.UserName,
-                    UserId = userDetails.UserId,
-                    Fullname = userDetails.Fullname
-                };
-                return Ok(model);
-            }
+            var userId = userClaims.GetUserClaims((ClaimsIdentity)User.Identity);
+            var userDetails = userClaims.FindUserDetails(userId); // Find the user details from users table in DB
+            return userDetails != null ? Ok(userDetails) : (IHttpActionResult)NotFound();
         }
     }
 }

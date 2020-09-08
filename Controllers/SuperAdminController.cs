@@ -6,54 +6,34 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApiAuthenticationToken.Mail;
 using WebApiAuthenticationToken.Models;
+using WebApiAuthenticationToken.Repository;
 
 namespace WebApiAuthenticationToken.Controllers
 {
     public class SuperAdminController : ApiController
     {
-        readonly TestDBEntities2 db;
-        readonly EmailMessages emailMessages;
+        readonly SuperAdminRepo superAdmin;
         public SuperAdminController()
         {
-            db = new TestDBEntities2();
-            emailMessages = new EmailMessages();
+            superAdmin = new SuperAdminRepo();
         }
+
+        // HTTP Get method to get a list of admin registration requests
         [HttpGet]
         [Authorize(Roles = "Superadmin")]
         public IHttpActionResult GetAll()
         {
-            var RequestList = db.Users.Where(x => x.Status == 1 && x.RoleId == 1).ToList();
-
-            List<UserApprovalViewModel> list = new List<UserApprovalViewModel>();
-
-            foreach (var items in RequestList)
-            {
-                var Role = db.Roles.FirstOrDefault(x => x.RoleId == items.RoleId);
-                var Rolename = Role.Rolename;
-                list.Add(new UserApprovalViewModel
-                {
-                    UserId = items.UserId,
-                    UserName = items.UserName,
-                    Fullname = items.Fullname,
-                    UserEmail = items.UserEmail,
-                    RoleName = Rolename
-                });
-            }
-            return Ok(list);
+            List<UserApprovalViewModel> response = superAdmin.GetAllAdminRequest();
+            return Ok(response);
         }
+
+        // HTTP Put method to update admin's registration request
         [HttpPut]
         [Authorize(Roles = "Superadmin")]
         public IHttpActionResult PutRequest(int id, RegisterUpdateModel model)
         {
-            var UserDetails = db.Users.FirstOrDefault(x => x.UserId == id);
-            if (UserDetails != null)
-            {
-                UserDetails.Status = Convert.ToInt32(model.status);
-                db.SaveChanges();
-                //emailMessages.SendEmail(UserDetails.Fullname, model.status);
-                return Ok();
-            }
-            return NotFound();
+            bool IsSuccess = superAdmin.UpdateRegisterRequest(id, model);
+            return IsSuccess ? Ok() : (IHttpActionResult)NotFound();
         }
     }
 }

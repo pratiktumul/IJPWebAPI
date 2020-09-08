@@ -4,15 +4,15 @@ using WebApiAuthenticationToken.Models;
 
 namespace WebApiAuthenticationToken.Mail
 {
-    public class EmailMessages : IEmailMessage
+    public class InterviewEmail
     {
-        public bool SendEmail(string Name, RegisterUpdateModel model, string email)
+        public bool SendEmail(UserModel userModel, JobApplicationStatusModel model, JobOpening jobOpening)
         {
-            if (model.status == "3")
+            if (model.Status == "3")
             {
-                string subject = "Registration Request Approved";
-                string body = "Dear " + Name + ",<br/><br/>Your registration request has been approved. You can now login and apply for jobs.<br/><br/>Regards,<br/>GyanSys";
-                string to = email;
+                string subject = "Job Application Approved";
+                string body = "Dear " + userModel.Fullname + ",<br/><br/>Your Job Application for " + jobOpening.JobTitle + ", " + jobOpening.CompanyName + " has been approved. Your interview has been scheduled on " + model.InterviewDate.ToString("MM/dd/yyyy")+". Further details will be communicated to your by the HR soon.<br/><br/>Regards,<br/>GyanSys";
+                string to = userModel.UserEmail;
 
                 MailMessage mm = new MailMessage
                 {
@@ -36,9 +36,9 @@ namespace WebApiAuthenticationToken.Mail
             }
             else
             {
-                string subject = "Registration Request Rejected";
-                string body = "Dear " + Name + ",<br/><br/>Your registration request has been rejected. Please contact admin for help.<br/><br/>Regards,<br/>GyanSys";
-                string to = "pratiktumul24@gmail.com";
+                string subject = "Job Application Rejected";
+                string body = "Dear " + userModel.Fullname + ",<br/><br/>Your Job Application for " + jobOpening.JobTitle + ", " + jobOpening.CompanyName + " has been rejected. Please contact HR for help.<br/><br/>Regards,<br/>GyanSys";
+                string to = userModel.UserEmail;
 
                 MailMessage mm = new MailMessage
                 {
@@ -54,7 +54,7 @@ namespace WebApiAuthenticationToken.Mail
                     UseDefaultCredentials = false,
                     Port = 587,
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "***")
+                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "s/HD123gs")
                 };
                 client.Send(mm);
 

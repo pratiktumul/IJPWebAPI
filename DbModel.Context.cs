@@ -25,7 +25,6 @@ namespace WebApiAuthenticationToken
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Demo> Demoes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -34,5 +33,6 @@ namespace WebApiAuthenticationToken
         public virtual DbSet<job_posts_skill_sets> job_posts_skill_sets { get; set; }
         public virtual DbSet<tbl_Status> tbl_Status { get; set; }
         public virtual DbSet<User_Image> User_Image { get; set; }
+        public virtual DbSet<JobApplication> JobApplications { get; set; }
     }
 }

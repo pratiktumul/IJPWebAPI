@@ -4,14 +4,14 @@ using WebApiAuthenticationToken.Models;
 
 namespace WebApiAuthenticationToken.Mail
 {
-    public class EmailMessages : IEmailMessage
+    public class SuperAdminMail : IEmailMessage
     {
         public bool SendEmail(string Name, RegisterUpdateModel model, string email)
         {
             if (model.status == "3")
             {
                 string subject = "Registration Request Approved";
-                string body = "Dear " + Name + ",<br/><br/>Your registration request has been approved. You can now login and apply for jobs.<br/><br/>Regards,<br/>GyanSys";
+                string body = "Dear " + Name + ",<br/><br/>Your registration request for Admin Profile has been approved. You can now login and go ahead with your tasks.<br/><br/>Regards,<br/>GyanSys";
                 string to = email;
 
                 MailMessage mm = new MailMessage
@@ -37,7 +37,7 @@ namespace WebApiAuthenticationToken.Mail
             else
             {
                 string subject = "Registration Request Rejected";
-                string body = "Dear " + Name + ",<br/><br/>Your registration request has been rejected. Please contact admin for help.<br/><br/>Regards,<br/>GyanSys";
+                string body = "Dear " + Name + ",<br/><br/>Your registration request has been rejected. Please contact Superadmin for help.<br/><br/>Regards,<br/>GyanSys";
                 string to = "pratiktumul24@gmail.com";
 
                 MailMessage mm = new MailMessage
@@ -54,7 +54,7 @@ namespace WebApiAuthenticationToken.Mail
                     UseDefaultCredentials = false,
                     Port = 587,
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "***")
+                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "s/HD123gs")
                 };
                 client.Send(mm);
 

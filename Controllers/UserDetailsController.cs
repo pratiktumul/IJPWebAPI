@@ -6,48 +6,38 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
+using WebApiAuthenticationToken.Models;
+using WebApiAuthenticationToken.Repository;
 
 namespace WebApiAuthenticationToken.Controllers
 {
     public class UserDetailsController : ApiController
     {
-        private string UserClaims()
+        readonly UserClaimsRepo userClaims;
+        readonly ResumeDownloadRepo resumeDownload;
+        private UserDetailsController()
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var username = identity.Name;
-            return username;
+            resumeDownload = new ResumeDownloadRepo();
+            userClaims = new UserClaimsRepo();
         }
+
+        // HTTP Get method to get the resume for a given user id
         [Authorize]
         [HttpGet]
         [Route("api/UserDetails")]
         public HttpResponseMessage GetResume()
         {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            var userId = userClaims.GetUserClaims((ClaimsIdentity)User.Identity);
+            ResumeModel resume = resumeDownload.DownloadResume(userId);
 
-            using (var db = new TestDBEntities2())
+            if (resume != null)
             {
-                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                var username = UserClaims();
-
-                var userDetails = db.Users.FirstOrDefault(x => x.UserName == username);
-
-                var userId = userDetails.UserId;
-
-                var application = db.Demoes.FirstOrDefault(x => x.UserId == userId);
-
-                if (application != null)
-                {
-                    var fullpath = application.Resume;
-                    var mimeType = System.Web.MimeMapping.GetMimeMapping(fullpath);
-
-                    byte[] file = File.ReadAllBytes(fullpath);
-                    MemoryStream ms = new MemoryStream(file);
-                    response.Content = new StreamContent(ms);
-                    response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(mimeType);
-                    return response;
-                }
-                else
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                response.Content = new StreamContent(resume.Ms);
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(resume.MimeType);
+                return response;
             }
+            return Request.CreateResponse(HttpStatusCode.NotFound);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace WebApiAuthenticationToken.Models
 {
     public class UserDashboardViewModel
     {
-        public int totalJobs { get; set; }
+        public int TotalJobs { get; set; }
+        public int TotalApproved { get; set; }
+        public int TotalRejected { get; set; }
     }
 }

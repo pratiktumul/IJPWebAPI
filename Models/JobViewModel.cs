@@ -14,5 +14,8 @@ namespace WebApiAuthenticationToken.Models
         public string JobType { get; set; }
         public string PostedDate { get; set; }
         public string JobDescription { get; set; }
+        public int? Vacancy { get; set; }
+        public int? Salary { get; set; }
+        public DateTime ApplicationDate { get; set; }
     }
 }

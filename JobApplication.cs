@@ -12,7 +12,7 @@ namespace WebApiAuthenticationToken
     using System;
     using System.Collections.Generic;
     
-    public partial class Demo
+    public partial class JobApplication
     {
         public int Id { get; set; }
         public string Ename { get; set; }
@@ -25,8 +25,11 @@ namespace WebApiAuthenticationToken
         public string Skill { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<int> JobId { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<System.DateTime> InterviewDate { get; set; }
     
-        public virtual User User { get; set; }
         public virtual JobOpening JobOpening { get; set; }
+        public virtual User User { get; set; }
+        public virtual tbl_Status tbl_Status { get; set; }
     }
 }

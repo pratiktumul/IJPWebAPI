@@ -18,6 +18,7 @@ namespace WebApiAuthenticationToken
         public tbl_Status()
         {
             this.Users = new HashSet<User>();
+            this.JobApplications = new HashSet<JobApplication>();
         }
     
         public int StatusId { get; set; }
@@ -25,5 +26,7 @@ namespace WebApiAuthenticationToken
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobApplication> JobApplications { get; set; }
     }
 }
