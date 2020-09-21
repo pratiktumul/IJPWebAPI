@@ -9,10 +9,9 @@
 
 namespace WebApiAuthenticationToken
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class TestDBEntities2 : DbContext
     {
         public TestDBEntities2()

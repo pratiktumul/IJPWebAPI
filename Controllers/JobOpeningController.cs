@@ -30,6 +30,10 @@ namespace WebApiAuthenticationToken.Controllers
         [Route("api/JobOpening/search")]
         public IHttpActionResult GetJobBySearch(string title, string location)
         {
+            if(title == null || location == null)
+            {
+                return NotFound();
+            }
             List<JobModel> ActiveJobs = jobOpening.FindJobBySearch(title, location);
             return ActiveJobs.Count == 0 ? NotFound() : (IHttpActionResult)Ok(ActiveJobs);
         }

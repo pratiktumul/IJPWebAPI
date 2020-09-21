@@ -20,7 +20,7 @@ namespace WebApiAuthenticationToken.Repository
         // This method returns list of all registration request where status is applied and role is user
         public List<UserApprovalViewModel> GetAllRegistrationRequest()
         {
-            var RequestList = db.Users.Where(x => x.Status == 1 && x.RoleId == 2).ToList();
+            var RequestList = db.Users.Where(x => x.Status == 1 && (x.RoleId == 2 || x.RoleId == 4)).ToList();
 
             List<UserApprovalViewModel> registationList = new List<UserApprovalViewModel>();
 
