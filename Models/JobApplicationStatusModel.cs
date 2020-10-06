@@ -9,5 +9,6 @@ namespace WebApiAuthenticationToken.Models
     {
         public string Status { get; set; }
         public DateTime InterviewDate { get; set; }
+        public string RejectReason { get; set; }
     }
 }

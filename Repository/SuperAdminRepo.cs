@@ -43,7 +43,7 @@ namespace WebApiAuthenticationToken.Repository
             {
                 UserDetails.Status = Convert.ToInt32(model.status);
                 db.SaveChanges();
-                //superAdmin.SendEmail(UserDetails.Fullname, model, UserDetails.UserEmail); // this will send auto-generated email to the admin
+                superAdmin.SendEmail(UserDetails.Fullname, model, UserDetails.UserEmail); // this will send auto-generated email to the admin
                 return true;
             }
             return false;

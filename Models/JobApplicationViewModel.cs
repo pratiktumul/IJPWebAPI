@@ -13,5 +13,7 @@ namespace WebApiAuthenticationToken.Models
         public string JobTitle { get; set; }
         public int UserId { get; set; }
         public int JobId { get; set; }
+        public int? EmpId { get; set; }
+
     }
 }

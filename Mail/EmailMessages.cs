@@ -28,7 +28,7 @@ namespace WebApiAuthenticationToken.Mail
                     UseDefaultCredentials = false,
                     Port = 587,
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "***")
+                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "s/HD123gs")
                 };
                 client.Send(mm);
 
@@ -54,7 +54,7 @@ namespace WebApiAuthenticationToken.Mail
                     UseDefaultCredentials = false,
                     Port = 587,
                     EnableSsl = true,
-                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "***")
+                    Credentials = new NetworkCredential("medicure.clinic247@gmail.com", "s/HD123gs")
                 };
                 client.Send(mm);
 

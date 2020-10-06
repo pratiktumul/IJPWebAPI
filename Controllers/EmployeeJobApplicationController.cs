@@ -58,7 +58,9 @@ namespace WebApiAuthenticationToken.Controllers
                     UserId = userId,
                     JobId = Convert.ToInt32(JobId),
                     Status = 1,
-                    InterviewDate = null
+                    InterviewDate = null,
+                    EmpId = Convert.ToInt32(httpRequest["EmpId"]),
+                    ApplyDate = DateTime.Now
                 };
                 db.JobApplications.Add(NewJobApplication);
                 db.SaveChanges();

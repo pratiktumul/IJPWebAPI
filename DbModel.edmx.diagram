@@ -23,6 +23,8 @@
         <AssociationConnector Association="TestDBModel.FK_Demo_JobOpening1" />
         <AssociationConnector Association="TestDBModel.FK_Demo_User1" />
         <AssociationConnector Association="TestDBModel.FK_JobApplication_tbl_Status" />
+        <EntityTypeShape EntityType="TestDBModel.company" Width="1.5" PointX="3.125" PointY="1.625" />
+        <AssociationConnector Association="TestDBModel.FK_JobOpening_company" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -27,6 +27,8 @@ namespace WebApiAuthenticationToken
         public Nullable<int> JobId { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> InterviewDate { get; set; }
+        public Nullable<int> EmpId { get; set; }
+        public Nullable<System.DateTime> ApplyDate { get; set; }
     
         public virtual JobOpening JobOpening { get; set; }
         public virtual User User { get; set; }

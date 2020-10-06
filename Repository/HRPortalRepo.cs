@@ -44,7 +44,7 @@ namespace WebApiAuthenticationToken.Repository
                              {
                                  ja.Id,
                                  ja.Ename,
-                                 ja.UserId,
+                                 ja.EmpId,
                                  jo.CompanyName,
                                  jo.JobTitle,
                                  jo.JobId
@@ -56,7 +56,7 @@ namespace WebApiAuthenticationToken.Repository
                 {
                     ApplicationId = item.Id,
                     EmployeeName = item.Ename,
-                    UserId = (int)item.UserId,
+                    UserId = (int)item.EmpId,
                     CompanyName = item.CompanyName,
                     JobTitle = item.JobTitle,
                     JobId = item.JobId

@@ -13,5 +13,6 @@ namespace WebApiAuthenticationToken.Models
         public string UserEmail { get; set; }
         public string Fullname { get; set; }
         public int? RoleId { get; set; }
+        public int? EmpId { get; set; }
     }
 }

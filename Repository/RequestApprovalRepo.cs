@@ -50,7 +50,7 @@ namespace WebApiAuthenticationToken.Repository
             }
             UserDetails.Status = Convert.ToInt32(status.status);
             db.SaveChanges();
-            //emailMessages.SendEmail(UserDetails.Fullname, status, UserDetails.UserEmail); // this will send auto-generated email to the user
+            emailMessages.SendEmail(UserDetails.Fullname, status, UserDetails.UserEmail); // this will send auto-generated email to the user
             return true;
         }
     }

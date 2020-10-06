@@ -28,6 +28,7 @@ namespace WebApiAuthenticationToken
         public string Fullname { get; set; }
         public Nullable<int> RoleId { get; set; }
         public Nullable<int> Status { get; set; }
+        public Nullable<int> EmpId { get; set; }
     
         public virtual Role Role { get; set; }
         public virtual User_Log User_Log { get; set; }

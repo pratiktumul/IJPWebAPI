@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TestDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="profile_description" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="establishment_date" Type="date" Nullable="false" />
+          <Property Name="company_website_url" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="job_posts_skill_sets">
           <Key>
             <PropertyRef Name="skill_set_id" />
@@ -31,6 +41,8 @@
           <Property Name="JobId" Type="int" />
           <Property Name="Status" Type="int" />
           <Property Name="InterviewDate" Type="datetime" />
+          <Property Name="EmpId" Type="int" />
+          <Property Name="ApplyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="JobOpening">
           <Key>
@@ -47,6 +59,7 @@
           <Property Name="Vacancy" Type="int" />
           <Property Name="LastApplyDate" Type="date" />
           <Property Name="Salary" Type="int" />
+          <Property Name="CompanyId" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -80,6 +93,7 @@
           <Property Name="Fullname" Type="nvarchar" MaxLength="100" />
           <Property Name="RoleId" Type="int" />
           <Property Name="Status" Type="int" />
+          <Property Name="EmpId" Type="int" />
         </EntityType>
         <EntityType Name="User_Image">
           <Key>
@@ -130,6 +144,18 @@
             </Principal>
             <Dependent Role="JobApplication">
               <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobOpening_company">
+          <End Role="company" Type="Self.company" Multiplicity="0..1" />
+          <End Role="JobOpening" Type="Self.JobOpening" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JobOpening">
+              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -206,6 +232,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TestDBModelStoreContainer">
+          <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobApplication" EntityType="Self.JobApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
@@ -226,6 +253,10 @@
           <AssociationSet Name="FK_JobApplication_tbl_Status" Association="Self.FK_JobApplication_tbl_Status">
             <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="JobApplication" EntitySet="JobApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobOpening_company" Association="Self.FK_JobOpening_company">
+            <End Role="company" EntitySet="company" />
+            <End Role="JobOpening" EntitySet="JobOpening" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Image_User" Association="Self.FK_User_Image_User">
             <End Role="User" EntitySet="User" />
@@ -272,6 +303,7 @@
           <NavigationProperty Name="tbl_Status" Relationship="TestDBModel.FK_User_tbl_Status" FromRole="User" ToRole="tbl_Status" />
           <NavigationProperty Name="User_Image" Relationship="TestDBModel.FK_User_Image_User" FromRole="User" ToRole="User_Image" />
           <NavigationProperty Name="JobApplications" Relationship="TestDBModel.FK_Demo_User1" FromRole="User" ToRole="JobApplication" />
+          <Property Name="EmpId" Type="Int32" />
         </EntityType>
         <EntityContainer Name="TestDBEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -319,6 +351,11 @@
             <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="JobApplication" EntitySet="JobApplications" />
           </AssociationSet>
+          <EntitySet Name="companies" EntityType="TestDBModel.company" />
+          <AssociationSet Name="FK_JobOpening_company" Association="TestDBModel.FK_JobOpening_company">
+            <End Role="company" EntitySet="companies" />
+            <End Role="JobOpening" EntitySet="JobOpenings" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobOpening">
           <Key>
@@ -337,6 +374,8 @@
           <Property Name="LastApplyDate" Type="DateTime" Precision="0" />
           <Property Name="Salary" Type="Int32" />
           <NavigationProperty Name="JobApplications" Relationship="TestDBModel.FK_Demo_JobOpening1" FromRole="JobOpening" ToRole="JobApplication" />
+          <Property Name="CompanyId" Type="Int32" />
+          <NavigationProperty Name="company" Relationship="TestDBModel.FK_JobOpening_company" FromRole="JobOpening" ToRole="company" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -484,6 +523,8 @@
           <Property Name="Status" Type="Int32" />
           <NavigationProperty Name="tbl_Status" Relationship="TestDBModel.FK_JobApplication_tbl_Status" FromRole="JobApplication" ToRole="tbl_Status" />
           <Property Name="InterviewDate" Type="DateTime" Precision="3" />
+          <Property Name="EmpId" Type="Int32" />
+          <Property Name="ApplyDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Demo_JobOpening1">
           <End Type="TestDBModel.JobOpening" Role="JobOpening" Multiplicity="0..1" />
@@ -521,6 +562,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="profile_description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="establishment_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="company_website_url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="JobOpenings" Relationship="TestDBModel.FK_JobOpening_company" FromRole="company" ToRole="JobOpening" />
+        </EntityType>
+        <Association Name="FK_JobOpening_company">
+          <End Type="TestDBModel.company" Role="company" Multiplicity="0..1" />
+          <End Type="TestDBModel.JobOpening" Role="JobOpening" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JobOpening">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -530,6 +594,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TestDBModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -543,6 +608,7 @@
           <EntitySetMapping Name="JobOpenings">
             <EntityTypeMapping TypeName="TestDBModel.JobOpening">
               <MappingFragment StoreEntitySet="JobOpening">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="LastApplyDate" ColumnName="LastApplyDate" />
                 <ScalarProperty Name="Vacancy" ColumnName="Vacancy" />
@@ -611,6 +677,8 @@
           <EntitySetMapping Name="JobApplications">
             <EntityTypeMapping TypeName="TestDBModel.JobApplication">
               <MappingFragment StoreEntitySet="JobApplication">
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
                 <ScalarProperty Name="InterviewDate" ColumnName="InterviewDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="JobId" ColumnName="JobId" />
@@ -624,6 +692,17 @@
                 <ScalarProperty Name="Curloc" ColumnName="Curloc" />
                 <ScalarProperty Name="Ename" ColumnName="Ename" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="TestDBModel.company">
+              <MappingFragment StoreEntitySet="company">
+                <ScalarProperty Name="company_website_url" ColumnName="company_website_url" />
+                <ScalarProperty Name="establishment_date" ColumnName="establishment_date" />
+                <ScalarProperty Name="profile_description" ColumnName="profile_description" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

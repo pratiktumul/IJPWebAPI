@@ -9,9 +9,10 @@
 
 namespace WebApiAuthenticationToken
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class TestDBEntities2 : DbContext
     {
         public TestDBEntities2()
@@ -33,5 +34,6 @@ namespace WebApiAuthenticationToken
         public virtual DbSet<tbl_Status> tbl_Status { get; set; }
         public virtual DbSet<User_Image> User_Image { get; set; }
         public virtual DbSet<JobApplication> JobApplications { get; set; }
+        public virtual DbSet<company> companies { get; set; }
     }
 }
