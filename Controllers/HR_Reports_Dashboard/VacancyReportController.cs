@@ -15,9 +15,17 @@ namespace WebApiAuthenticationToken.Controllers.HR_Reports_Dashboard
         {
             vacancyReport = new VacancyReportRepo();
         }
+        [Route("api/VacancyReport/LocationWise")]
         public IHttpActionResult GetVacancyByLocation()
         {
             var response = vacancyReport.GetVacancyByLocations();
+            return Ok(response);
+        }
+
+        [Route("api/VacancyReport/CompanyWise")]
+        public IHttpActionResult GetVacancyByCompany()
+        {
+            var response = vacancyReport.GetVacancyByCompany();
             return Ok(response);
         }
     }
