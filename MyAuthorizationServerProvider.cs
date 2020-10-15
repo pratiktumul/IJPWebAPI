@@ -41,7 +41,7 @@ namespace WebApiAuthenticationToken
                     }
                 }
                 int updateLogin = _repo.UpdateLastlogin(user.UserId);
-                using (var db = new TestDBEntities2())
+                using (var db = new IJPDBEntities())
                 {
                     var role = db.Roles.FirstOrDefault(x => x.RoleId == user.RoleId);
                     roleName = role.Rolename;

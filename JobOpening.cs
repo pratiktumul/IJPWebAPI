@@ -32,12 +32,12 @@ namespace WebApiAuthenticationToken
         public Nullable<int> Vacancy { get; set; }
         public Nullable<System.DateTime> LastApplyDate { get; set; }
         public Nullable<int> Salary { get; set; }
-        public Nullable<int> CompanyId { get; set; }
+        public Nullable<int> company_id { get; set; }
     
+        public virtual company company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<job_posts_skill_sets> job_posts_skill_sets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobApplication> JobApplications { get; set; }
-        public virtual company company { get; set; }
     }
 }

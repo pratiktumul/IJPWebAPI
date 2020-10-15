@@ -8,10 +8,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class RegisterRepo
     {
-        private readonly TestDBEntities2 db;
+        private readonly IJPDBEntities db;
         public RegisterRepo()
         {
-            db = new TestDBEntities2(); // create instance of DBContext class
+            db = new IJPDBEntities(); // create instance of DBContext class
         }
 
         // This method checks if the username already exists in the system; if yes then return false else add the user in system

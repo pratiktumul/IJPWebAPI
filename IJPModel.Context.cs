@@ -13,10 +13,10 @@ namespace WebApiAuthenticationToken
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TestDBEntities2 : DbContext
+    public partial class IJPDBEntities : DbContext
     {
-        public TestDBEntities2()
-            : base("name=TestDBEntities2")
+        public IJPDBEntities()
+            : base("name=IJPDBEntities")
         {
         }
     
@@ -25,15 +25,16 @@ namespace WebApiAuthenticationToken
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<JobOpening> JobOpenings { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<User_Log> User_Log { get; set; }
-        public virtual DbSet<tbl_Skill> tbl_Skill { get; set; }
-        public virtual DbSet<job_posts_skill_sets> job_posts_skill_sets { get; set; }
-        public virtual DbSet<tbl_Status> tbl_Status { get; set; }
-        public virtual DbSet<User_Image> User_Image { get; set; }
-        public virtual DbSet<JobApplication> JobApplications { get; set; }
         public virtual DbSet<company> companies { get; set; }
+        public virtual DbSet<job_posts_skill_sets> job_posts_skill_sets { get; set; }
+        public virtual DbSet<JobApplication> JobApplications { get; set; }
+        public virtual DbSet<JobOpening> JobOpenings { get; set; }
+        public virtual DbSet<RefTable> RefTables { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<tbl_Skill> tbl_Skill { get; set; }
+        public virtual DbSet<tbl_Status> tbl_Status { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User_Image> User_Image { get; set; }
+        public virtual DbSet<User_Log> User_Log { get; set; }
     }
 }

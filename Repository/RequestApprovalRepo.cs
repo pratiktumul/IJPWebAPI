@@ -9,11 +9,11 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class RequestApprovalRepo
     {
-        readonly TestDBEntities2 db;
+        readonly IJPDBEntities db;
         readonly EmailMessages emailMessages;
         public RequestApprovalRepo()
         {
-            db = new TestDBEntities2();
+            db = new IJPDBEntities();
             emailMessages = new EmailMessages();
         }
 

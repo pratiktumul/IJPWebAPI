@@ -11,7 +11,7 @@ namespace WebApiAuthenticationToken
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            //config.EnableCors(new EnableCorsAttribute("*", headers: "*", methods: "*"));
+            config.EnableCors(new EnableCorsAttribute("*", headers: "*", methods: "*"));
             // Web API routes
             config.MapHttpAttributeRoutes();
 

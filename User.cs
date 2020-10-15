@@ -17,8 +17,8 @@ namespace WebApiAuthenticationToken
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.User_Image = new HashSet<User_Image>();
             this.JobApplications = new HashSet<JobApplication>();
+            this.User_Image = new HashSet<User_Image>();
         }
     
         public int UserId { get; set; }
@@ -30,12 +30,12 @@ namespace WebApiAuthenticationToken
         public Nullable<int> Status { get; set; }
         public Nullable<int> EmpId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobApplication> JobApplications { get; set; }
         public virtual Role Role { get; set; }
-        public virtual User_Log User_Log { get; set; }
         public virtual tbl_Status tbl_Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Image> User_Image { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JobApplication> JobApplications { get; set; }
+        public virtual User_Log User_Log { get; set; }
     }
 }

@@ -11,12 +11,12 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class HRPortalRepo
     {
-        private readonly TestDBEntities2 db;
+        private readonly IJPDBEntities db;
         private readonly InterviewEmail interview;
         public HRPortalRepo()
         {
             interview = new InterviewEmail();
-            db = new TestDBEntities2(); // Create instance of DBContext Class
+            db = new IJPDBEntities(); // Create instance of DBContext Class
         }
 
         // This methos updates job opening table when HR approves a job application
@@ -44,7 +44,7 @@ namespace WebApiAuthenticationToken.Repository
                              {
                                  ja.Id,
                                  ja.Ename,
-                                 ja.EmpId,
+                                 ja.UserId,
                                  jo.CompanyName,
                                  jo.JobTitle,
                                  jo.JobId
@@ -56,7 +56,7 @@ namespace WebApiAuthenticationToken.Repository
                 {
                     ApplicationId = item.Id,
                     EmployeeName = item.Ename,
-                    UserId = (int)item.EmpId,
+                    UserId = (int)item.UserId,
                     CompanyName = item.CompanyName,
                     JobTitle = item.JobTitle,
                     JobId = item.JobId

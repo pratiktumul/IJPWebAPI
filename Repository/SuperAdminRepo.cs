@@ -11,11 +11,11 @@ namespace WebApiAuthenticationToken.Repository
     public class SuperAdminRepo
     {
         private readonly SuperAdminMail superAdmin;
-        private readonly TestDBEntities2 db;
+        private readonly IJPDBEntities db;
         public SuperAdminRepo()
         {
             superAdmin = new SuperAdminMail();
-            db = new TestDBEntities2(); // Create instance of DBContext Class
+            db = new IJPDBEntities(); // Create instance of DBContext Class
         }
 
         // This method will return a list of all pending admin registration requests

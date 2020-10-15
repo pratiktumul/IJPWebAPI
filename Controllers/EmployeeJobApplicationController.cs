@@ -24,7 +24,7 @@ namespace WebApiAuthenticationToken.Controllers
         public IHttpActionResult PostDemo()
         {
             var userId = userClaims.GetUserClaims((ClaimsIdentity)User.Identity); // calling UserClaims funtion to get the username to get the userid
-            using (var db = new TestDBEntities2())
+            using (var db = new IJPDBEntities())
             {
                 var httpRequest = HttpContext.Current.Request; // creating an instance of current request of HTTP Context class 
                 int JobId = Convert.ToInt32(httpRequest["JobId"]); // JobID in DB is in int format but HTTP request will have it as string: conversion from string to int

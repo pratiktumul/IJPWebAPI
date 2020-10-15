@@ -7,7 +7,7 @@ namespace WebApiAuthenticationToken
 {
     public class UserMasterRepository : IDisposable
     {
-        TestDBEntities2 db = new TestDBEntities2();
+        IJPDBEntities db = new IJPDBEntities();
         public User ValidateUser(string username, string password)
         {
             var hash_password = Utils.HashPassword(password);

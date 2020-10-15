@@ -197,12 +197,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="company.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\EmployeeJobApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRPortalController.cs" />
+    <Compile Include="Controllers\HR_Reports_Dashboard\VacancyReportController.cs" />
     <Compile Include="Controllers\JobOpeningController.cs" />
+    <Compile Include="Controllers\JobReferalController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\JobSuggestionController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -214,32 +216,32 @@
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\User_ImageController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="DbModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IJPModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IJPModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IJPModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IJPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IJPModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IJPModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="JobApplication.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JobOpening.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="job_posts_skill_sets.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Mail\EmailMessages.cs" />
     <Compile Include="Mail\IEmailMessage.cs" />
@@ -247,11 +249,13 @@
     <Compile Include="Mail\SuperAdminMail.cs" />
     <Compile Include="Models\AdminJobs.cs" />
     <Compile Include="Models\AppliedJobsViewModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyByLocationModel.cs" />
     <Compile Include="Models\IsExpired.cs" />
     <Compile Include="Models\JobApplicationDetailModel.cs" />
     <Compile Include="Models\JobApplicationStatusModel.cs" />
     <Compile Include="Models\JobApplicationViewModel.cs" />
     <Compile Include="Models\JobModel.cs" />
+    <Compile Include="Models\JobReferalViewModel.cs" />
     <Compile Include="Models\JobViewModel.cs" />
     <Compile Include="Models\RegisterUpdateModel.cs" />
     <Compile Include="Models\ResumeModel.cs" />
@@ -262,8 +266,13 @@
     <Compile Include="Models\User_ImageModel.cs" />
     <Compile Include="MyAuthorizationServerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefTable.cs">
+      <DependentUpon>IJPModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\HRPortalRepo.cs" />
+    <Compile Include="Repository\HR_Reports_Dashboard_Repo\VacancyReportRepo.cs" />
     <Compile Include="Repository\JobOpeningRepo.cs" />
+    <Compile Include="Repository\JobReferalRepo.cs" />
     <Compile Include="Repository\JobsRepo.cs" />
     <Compile Include="Repository\JobSuggestionRepo.cs" />
     <Compile Include="Repository\RequestApprovalRepo.cs" />
@@ -273,24 +282,24 @@
     <Compile Include="Repository\RegisterRepo.cs" />
     <Compile Include="Repository\UserDashboardRepo.cs" />
     <Compile Include="Role.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="tbl_Skill.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Status.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserMasterRepository.cs" />
     <Compile Include="User_Image.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Log.cs">
-      <DependentUpon>DbModel.tt</DependentUpon>
+      <DependentUpon>IJPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
   </ItemGroup>
@@ -300,19 +309,19 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DbModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DbModel.edmx</DependentUpon>
-      <LastGenOutput>DbModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DbModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DbModel.edmx</DependentUpon>
-      <LastGenOutput>DbModel.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="IJPModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IJPModel.edmx</DependentUpon>
+      <LastGenOutput>IJPModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="IJPModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IJPModel.edmx</DependentUpon>
+      <LastGenOutput>IJPModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -334,12 +343,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="DbModel.edmx">
+    <EntityDeploy Include="IJPModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DbModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>IJPModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DbModel.edmx.diagram">
-      <DependentUpon>DbModel.edmx</DependentUpon>
+    <Content Include="IJPModel.edmx.diagram">
+      <DependentUpon>IJPModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />

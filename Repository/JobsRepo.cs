@@ -10,10 +10,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class JobsRepo
     {
-        private readonly TestDBEntities2 db;
+        private readonly IJPDBEntities db;
         public JobsRepo()
         {
-            db = new TestDBEntities2(); // instantiate object of TestDBEntities2 inside the contructor
+            db = new IJPDBEntities(); // instantiate object of TestDBEntities2 inside the contructor
         }
 
         //this method return a list of all active jobs to the Jobs Controller

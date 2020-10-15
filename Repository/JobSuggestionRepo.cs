@@ -9,10 +9,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class JobSuggestionRepo
     {
-        private readonly TestDBEntities2 db;
+        private readonly IJPDBEntities db;
         public JobSuggestionRepo()
         {
-            db = new TestDBEntities2(); // create instance of DBContext class
+            db = new IJPDBEntities(); // create instance of DBContext class
         }
 
         // Method to find time difference between created job date and current date

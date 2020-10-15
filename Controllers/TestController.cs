@@ -16,7 +16,7 @@ namespace WebApiAuthenticationToken.Controllers
         [Route("api/Test/Expire")]
         public IHttpActionResult Expire([FromUri]int id,[FromUri] bool e)
         {
-            using(var db = new TestDBEntities2())
+            using(var db = new IJPDBEntities())
             {
                 var jobDetails = db.JobOpenings.FirstOrDefault(x => x.JobId == id);
                 if(jobDetails != null)
