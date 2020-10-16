@@ -18,6 +18,7 @@ namespace WebApiAuthenticationToken
         public tbl_Skill()
         {
             this.job_posts_skill_sets = new HashSet<job_posts_skill_sets>();
+            this.employee_skill_set = new HashSet<employee_skill_set>();
         }
     
         public int SkillId { get; set; }
@@ -25,5 +26,7 @@ namespace WebApiAuthenticationToken
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<job_posts_skill_sets> job_posts_skill_sets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<employee_skill_set> employee_skill_set { get; set; }
     }
 }

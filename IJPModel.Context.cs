@@ -36,5 +36,6 @@ namespace WebApiAuthenticationToken
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Image> User_Image { get; set; }
         public virtual DbSet<User_Log> User_Log { get; set; }
+        public virtual DbSet<employee_skill_set> employee_skill_set { get; set; }
     }
 }

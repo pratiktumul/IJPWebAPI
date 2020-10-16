@@ -15,6 +15,9 @@ namespace WebApiAuthenticationToken.Controllers.HR_Reports_Dashboard
         {
             vacancyReport = new VacancyReportRepo();
         }
+
+        [HttpGet]
+        [Authorize(Roles = "HR")]
         [Route("api/VacancyReport/LocationWise")]
         public IHttpActionResult GetVacancyByLocation()
         {
@@ -22,6 +25,8 @@ namespace WebApiAuthenticationToken.Controllers.HR_Reports_Dashboard
             return Ok(response);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "HR")]
         [Route("api/VacancyReport/CompanyWise")]
         public IHttpActionResult GetVacancyByCompany()
         {

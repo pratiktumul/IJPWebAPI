@@ -32,7 +32,7 @@ namespace WebApiAuthenticationToken.Repository
                 UserPassword = Utils.HashPassword(newUser.UserPassword),
                 Fullname = newUser.Fullname,
                 RoleId = newUser.RoleId,
-                Status = 1
+                Status = 1,
             };
 
             db.Users.Add(user);
