@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="IJPDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="IJPDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="company">
           <Key>
             <PropertyRef Name="id" />
@@ -243,7 +243,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="IJPDBModelStoreContainer">
+        <EntityContainer Name="IJPDBModel1StoreContainer">
           <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobApplication" EntityType="Self.JobApplication" Schema="dbo" store:Type="Tables" />
@@ -296,10 +296,11 @@
             <End Role="job_posts_skill_sets" EntitySet="job_posts_skill_sets" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="IJPDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="IJPDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="company">
           <Key>
             <PropertyRef Name="id" />
@@ -558,7 +559,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="IJPDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="dbEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="companies" EntityType="Self.company" />
           <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" />
           <EntitySet Name="JobApplications" EntityType="Self.JobApplication" />
@@ -616,9 +617,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="IJPDBModelStoreContainer" CdmEntityContainer="IJPDBEntities">
+        <EntityContainerMapping StorageEntityContainer="IJPDBModel1StoreContainer" CdmEntityContainer="dbEntities1">
           <EntitySetMapping Name="companies">
-            <EntityTypeMapping TypeName="IJPDBModel.company">
+            <EntityTypeMapping TypeName="IJPDBModel1.company">
               <MappingFragment StoreEntitySet="company">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="company_name" ColumnName="company_name" />
@@ -629,7 +630,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="job_posts_skill_sets">
-            <EntityTypeMapping TypeName="IJPDBModel.job_posts_skill_sets">
+            <EntityTypeMapping TypeName="IJPDBModel1.job_posts_skill_sets">
               <MappingFragment StoreEntitySet="job_posts_skill_sets">
                 <ScalarProperty Name="skill_set_id" ColumnName="skill_set_id" />
                 <ScalarProperty Name="job_post_id" ColumnName="job_post_id" />
@@ -638,7 +639,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobApplications">
-            <EntityTypeMapping TypeName="IJPDBModel.JobApplication">
+            <EntityTypeMapping TypeName="IJPDBModel1.JobApplication">
               <MappingFragment StoreEntitySet="JobApplication">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Ename" ColumnName="Ename" />
@@ -659,7 +660,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobOpenings">
-            <EntityTypeMapping TypeName="IJPDBModel.JobOpening">
+            <EntityTypeMapping TypeName="IJPDBModel1.JobOpening">
               <MappingFragment StoreEntitySet="JobOpening">
                 <ScalarProperty Name="JobId" ColumnName="JobId" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
@@ -677,20 +678,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RefTables">
-            <EntityTypeMapping TypeName="IJPDBModel.RefTable">
+            <EntityTypeMapping TypeName="IJPDBModel1.RefTable">
               <MappingFragment StoreEntitySet="RefTable">
-                <ScalarProperty Name="pName" ColumnName="pName" />
                 <ScalarProperty Name="pEmployeId" ColumnName="pEmployeId" />
                 <ScalarProperty Name="pEmailId" ColumnName="pEmailId" />
                 <ScalarProperty Name="pPhoneNo" ColumnName="pPhoneNo" />
                 <ScalarProperty Name="pJobName" ColumnName="pJobName" />
                 <ScalarProperty Name="pLocation" ColumnName="pLocation" />
                 <ScalarProperty Name="pSkillSet" ColumnName="pSkillSet" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="IJPDBModel.Role">
+            <EntityTypeMapping TypeName="IJPDBModel1.Role">
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="Rolename" ColumnName="Rolename" />
@@ -698,7 +699,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Skill">
-            <EntityTypeMapping TypeName="IJPDBModel.tbl_Skill">
+            <EntityTypeMapping TypeName="IJPDBModel1.tbl_Skill">
               <MappingFragment StoreEntitySet="tbl_Skill">
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
                 <ScalarProperty Name="SkillName" ColumnName="SkillName" />
@@ -706,7 +707,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Status">
-            <EntityTypeMapping TypeName="IJPDBModel.tbl_Status">
+            <EntityTypeMapping TypeName="IJPDBModel1.tbl_Status">
               <MappingFragment StoreEntitySet="tbl_Status">
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -714,7 +715,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="IJPDBModel.User">
+            <EntityTypeMapping TypeName="IJPDBModel1.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -728,7 +729,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User_Image">
-            <EntityTypeMapping TypeName="IJPDBModel.User_Image">
+            <EntityTypeMapping TypeName="IJPDBModel1.User_Image">
               <MappingFragment StoreEntitySet="User_Image">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -737,7 +738,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User_Log">
-            <EntityTypeMapping TypeName="IJPDBModel.User_Log">
+            <EntityTypeMapping TypeName="IJPDBModel1.User_Log">
               <MappingFragment StoreEntitySet="User_Log">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Last_Login_Date" ColumnName="Last_Login_Date" />

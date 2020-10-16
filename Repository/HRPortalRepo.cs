@@ -11,12 +11,12 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class HRPortalRepo
     {
-        private readonly IJPDBEntities db;
+        private readonly dbEntities1 db;
         private readonly InterviewEmail interview;
         public HRPortalRepo()
         {
             interview = new InterviewEmail();
-            db = new IJPDBEntities(); // Create instance of DBContext Class
+            db = new dbEntities1(); // Create instance of DBContext Class
         }
 
         // This methos updates job opening table when HR approves a job application

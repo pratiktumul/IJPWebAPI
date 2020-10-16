@@ -8,10 +8,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class RegisterRepo
     {
-        private readonly IJPDBEntities db;
+        private readonly dbEntities1 db;
         public RegisterRepo()
         {
-            db = new IJPDBEntities(); // create instance of DBContext class
+            db = new dbEntities1(); // create instance of DBContext class
         }
 
         // This method checks if the username already exists in the system; if yes then return false else add the user in system
@@ -32,7 +32,8 @@ namespace WebApiAuthenticationToken.Repository
                 UserPassword = Utils.HashPassword(newUser.UserPassword),
                 Fullname = newUser.Fullname,
                 RoleId = newUser.RoleId,
-                Status = 1
+                Status = 1,
+                EmpId = newUser.EmpId
             };
 
             db.Users.Add(user);

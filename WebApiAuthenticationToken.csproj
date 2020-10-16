@@ -197,7 +197,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="company.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\EmployeeJobApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -220,29 +220,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IJPModel.Context.cs">
+    <Compile Include="IJP.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IJPModel.Context.tt</DependentUpon>
+      <DependentUpon>IJP.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="IJPModel.cs">
+    <Compile Include="IJP.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
-    <Compile Include="IJPModel.Designer.cs">
+    <Compile Include="IJP.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IJPModel.edmx</DependentUpon>
+      <DependentUpon>IJP.edmx</DependentUpon>
     </Compile>
     <Compile Include="JobApplication.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="JobOpening.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="job_posts_skill_sets.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="Mail\EmailMessages.cs" />
     <Compile Include="Mail\IEmailMessage.cs" />
@@ -270,7 +270,7 @@
     <Compile Include="MyAuthorizationServerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefTable.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\HRPortalRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\GeneralReportRepo.cs" />
@@ -286,24 +286,24 @@
     <Compile Include="Repository\RegisterRepo.cs" />
     <Compile Include="Repository\UserDashboardRepo.cs" />
     <Compile Include="Role.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="tbl_Skill.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Status.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="UserMasterRepository.cs" />
     <Compile Include="User_Image.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Log.cs">
-      <DependentUpon>IJPModel.tt</DependentUpon>
+      <DependentUpon>IJP.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
   </ItemGroup>
@@ -316,15 +316,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="IJPModel.Context.tt">
+    <Content Include="IJP.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IJPModel.edmx</DependentUpon>
-      <LastGenOutput>IJPModel.Context.cs</LastGenOutput>
+      <DependentUpon>IJP.edmx</DependentUpon>
+      <LastGenOutput>IJP.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="IJPModel.tt">
+    <Content Include="IJP.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IJPModel.edmx</DependentUpon>
-      <LastGenOutput>IJPModel.cs</LastGenOutput>
+      <DependentUpon>IJP.edmx</DependentUpon>
+      <LastGenOutput>IJP.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -347,12 +347,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="IJPModel.edmx">
+    <EntityDeploy Include="IJP.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>IJPModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>IJP.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="IJPModel.edmx.diagram">
-      <DependentUpon>IJPModel.edmx</DependentUpon>
+    <Content Include="IJP.edmx.diagram">
+      <DependentUpon>IJP.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />

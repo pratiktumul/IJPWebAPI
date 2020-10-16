@@ -6,10 +6,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class UserDashboardRepo
     {
-        private readonly IJPDBEntities db;
+        private readonly dbEntities1 db;
         public UserDashboardRepo()
         {
-            db = new IJPDBEntities();
+            db = new dbEntities1();
         }
 
         // This method return an object that returns total jobs applied, approved and rejected

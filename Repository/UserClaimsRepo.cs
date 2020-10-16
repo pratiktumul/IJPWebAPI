@@ -10,10 +10,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class UserClaimsRepo
     {
-        private readonly IJPDBEntities db;
+        private readonly dbEntities1 db;
         public UserClaimsRepo()
         {
-            db = new IJPDBEntities(); // instantiate object of TestDBEntities2 inside the contructor
+            db = new dbEntities1(); // instantiate object of TestDBEntities2 inside the contructor
         }
 
         // this method to get the userid from claims identity: this function will return the user id

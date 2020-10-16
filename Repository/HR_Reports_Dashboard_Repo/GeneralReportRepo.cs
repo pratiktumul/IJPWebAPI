@@ -8,10 +8,10 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 {
     public class GeneralReportRepo
     {
-        readonly private IJPDBEntities db;
+        readonly private dbEntities1 db;
         public GeneralReportRepo()
         {
-            db = new IJPDBEntities(); // Create instance of DBContext Class
+            db = new dbEntities1(); // Create instance of DBContext Class
         }
 
         // This method will return an instance of GeneralReportModel Class

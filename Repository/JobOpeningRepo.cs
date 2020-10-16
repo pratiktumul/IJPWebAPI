@@ -8,10 +8,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class JobOpeningRepo
     {
-        private readonly IJPDBEntities db;
+        private readonly dbEntities1 db;
         public JobOpeningRepo()
         {
-            db = new IJPDBEntities(); // create instance of DBContext class
+            db = new dbEntities1(); // create instance of DBContext class
         }
 
         // Funtion to find time difference between created job date and current date
@@ -78,7 +78,7 @@ namespace WebApiAuthenticationToken.Repository
         // This method returns the job details by passing job id in the method as parameter
         public JobViewModel FindJobById(int id)
         {
-            using (var db = new IJPDBEntities())
+            using (var db = new dbEntities1())
             {
                 var JobDetails = db.JobOpenings.FirstOrDefault(x => x.JobId == id);
                 if (JobDetails != null)

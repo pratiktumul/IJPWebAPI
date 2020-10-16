@@ -13,10 +13,10 @@ namespace WebApiAuthenticationToken
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class IJPDBEntities : DbContext
+    public partial class dbEntities1 : DbContext
     {
-        public IJPDBEntities()
-            : base("name=IJPDBEntities")
+        public dbEntities1()
+            : base("name=dbEntities1")
         {
         }
     

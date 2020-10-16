@@ -9,11 +9,11 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class ResumeDownloadRepo
     {
-        private readonly IJPDBEntities db;
+        private readonly dbEntities1 db;
 
         public ResumeDownloadRepo()
         {
-            db = new IJPDBEntities(); // instantiate object of TestDBEntities2 class
+            db = new dbEntities1(); // instantiate object of TestDBEntities2 class
         }
 
         // This method returns resume with the mime type binded in an object and takes userid as parameter

@@ -8,10 +8,10 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 {
     public class VacancyReportRepo
     {
-        readonly private IJPDBEntities db;
+        readonly private dbEntities1 db;
         public VacancyReportRepo()
         {
-            db = new IJPDBEntities();
+            db = new dbEntities1();
         }
         public List<VacancyByLocationModel> GetVacancyByLocations()
         {

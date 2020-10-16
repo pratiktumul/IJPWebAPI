@@ -13,12 +13,12 @@ namespace WebApiAuthenticationToken.Controllers
 {
     public class User_ImageController : ApiController
     {
-        readonly IJPDBEntities db;
+        readonly dbEntities1 db;
         readonly UserClaimsRepo userClaims;
         public User_ImageController()
         {
             userClaims = new UserClaimsRepo();
-            db = new IJPDBEntities();
+            db = new dbEntities1();
         }
 
         // HTTP Get method to get user's image for a given user id for User Role

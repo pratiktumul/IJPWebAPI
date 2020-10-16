@@ -8,10 +8,10 @@ namespace WebApiAuthenticationToken.Repository
 {
     public class JobReferalRepo
     {
-        readonly private IJPDBEntities db;
+        readonly private dbEntities1 db;
         public JobReferalRepo()
         {
-            db = new IJPDBEntities();
+            db = new dbEntities1();
         }
 
         public bool AddReferal(JobReferalViewModel jobReferal)
