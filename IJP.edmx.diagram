@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="23367e42bbda463bb4237723a993f619" Name="Diagram1">
+      <Diagram DiagramId="23367e42bbda463bb4237723a993f619" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="IJPDBModel1.company" Width="1.5" PointX="1.5" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="IJPDBModel1.job_posts_skill_sets" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IJPDBModel1.JobApplication" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
@@ -26,6 +26,8 @@
         <AssociationConnector Association="IJPDBModel1.FK_User_tbl_Status" ManuallyRouted="false" />
         <AssociationConnector Association="IJPDBModel1.FK_User_Image_User" ManuallyRouted="false" />
         <AssociationConnector Association="IJPDBModel1.FK_User_Log_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IJPDBModel1.employee_skill_level" Width="1.5" PointX="3" PointY="16.5" />
+        <AssociationConnector Association="IJPDBModel1.FK_employee_skill_level_tbl_Skill" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
