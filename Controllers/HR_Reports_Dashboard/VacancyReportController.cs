@@ -17,7 +17,7 @@ namespace WebApiAuthenticationToken.Controllers.HR_Reports_Dashboard
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR")]
+        //[Authorize(Roles = "HR")]
         [Route("api/VacancyReport/LocationWise")]
         public IHttpActionResult GetVacancyByLocation()
         {
@@ -26,7 +26,7 @@ namespace WebApiAuthenticationToken.Controllers.HR_Reports_Dashboard
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR")]
+        //[Authorize(Roles = "HR")]
         [Route("api/VacancyReport/CompanyWise")]
         public IHttpActionResult GetVacancyByCompany()
         {

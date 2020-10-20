@@ -15,8 +15,6 @@
           <Property Name="establishment_date" Type="date" Nullable="false" />
           <Property Name="company_website_url" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'IJPDB.dbo.employee_skill_set' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="employee_skill_set">
           <Key>
             <PropertyRef Name="SId" />
@@ -268,6 +266,7 @@ warning 6002: The table/view 'IJPDB.dbo.employee_skill_set' does not have a prim
         </Association>
         <EntityContainer Name="IJPDBModelStoreContainer">
           <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_skill_set" EntityType="Self.employee_skill_set" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobApplication" EntityType="Self.JobApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
@@ -278,14 +277,6 @@ warning 6002: The table/view 'IJPDB.dbo.employee_skill_set' does not have a prim
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Image" EntityType="Self.User_Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Log" EntityType="Self.User_Log" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="employee_skill_set" EntityType="Self.employee_skill_set" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [employee_skill_set].[SId] AS [SId], 
-    [employee_skill_set].[EmpId] AS [EmpId], 
-    [employee_skill_set].[Skill_Set_Id] AS [Skill_Set_Id], 
-    [employee_skill_set].[Skill_Level] AS [Skill_Level]
-    FROM [dbo].[employee_skill_set] AS [employee_skill_set]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Demo_JobOpening" Association="Self.FK_Demo_JobOpening">
             <End Role="JobOpening" EntitySet="JobOpening" />
             <End Role="JobApplication" EntitySet="JobApplication" />

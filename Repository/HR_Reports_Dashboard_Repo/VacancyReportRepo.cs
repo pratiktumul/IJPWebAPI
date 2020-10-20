@@ -16,7 +16,7 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
         public List<VacancyByLocationModel> GetVacancyByLocations()
         {
             List<VacancyByLocationModel> vacancy_list = new List<VacancyByLocationModel>();
-            var result = db.JobOpenings.OrderBy(x => x.Location).GroupBy(x => x.Location);
+            var result = db.JobOpenings.OrderBy(x => x.Location).GroupBy(x => x.Location).ToList();
             foreach (var item in result)
             {
                 vacancy_list.Add(new VacancyByLocationModel
@@ -30,7 +30,7 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
         public List<VacancyByCompanyModel> GetVacancyByCompany()
         {
             List<VacancyByCompanyModel> vacancy_list = new List<VacancyByCompanyModel>();
-            var result = db.JobOpenings.OrderBy(x => x.CompanyName).GroupBy(x => x.CompanyName);
+            var result = db.JobOpenings.OrderBy(x => x.CompanyName).GroupBy(x => x.CompanyName).Where(x => x.Count() != 0).ToList();
             foreach (var item in result)
             {
                 vacancy_list.Add(new VacancyByCompanyModel

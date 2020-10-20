@@ -19,7 +19,7 @@ namespace WebApiAuthenticationToken
         {
             using (UserMasterRepository _repo = new UserMasterRepository())
             {
-                var user = _repo.ValidateUser(context.UserName, context.Password);
+                var user = _repo.ValidateUser(Convert.ToInt32(context.UserName), context.Password);
                 var roleName = "";
                 var LastLoggedIn = "";
                 if (user == null || (user.Status == 1 || user.Status == 2))

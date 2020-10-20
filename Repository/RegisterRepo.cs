@@ -14,6 +14,14 @@ namespace WebApiAuthenticationToken.Repository
             db = new IJPDBEntities(); // create instance of DBContext class
         }
 
+        public bool CheckDomain(string email)
+        {
+            string domain = "gyansys.com";
+            int indexOfAt = email.IndexOf("@");
+            string extractDomain = email.Substring(indexOfAt + 1);
+            return domain.Equals(extractDomain);
+        }
+
         // This method checks if the username already exists in the system; if yes then return false else add the user in system
         public bool RegisterNewUser(UserModel newUser)
         {
@@ -25,14 +33,17 @@ namespace WebApiAuthenticationToken.Repository
                 return false;
             }
 
+            var isSuccess = CheckDomain(newUser.UserEmail);
+
             User user = new User()
             {
                 UserName = newUser.UserName,
                 UserEmail = newUser.UserEmail,
                 UserPassword = Utils.HashPassword(newUser.UserPassword),
                 Fullname = newUser.Fullname,
-                RoleId = newUser.RoleId,
-                Status = 1,
+                EmpId = newUser.EmpId,
+                RoleId = 2,
+                Status = isSuccess ? 3 : 1,
             };
 
             db.Users.Add(user);

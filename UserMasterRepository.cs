@@ -8,12 +8,10 @@ namespace WebApiAuthenticationToken
     public class UserMasterRepository : IDisposable
     {
         IJPDBEntities db = new IJPDBEntities();
-        public User ValidateUser(string username, string password)
+        public User ValidateUser(int empid, string password)
         {
             var hash_password = Utils.HashPassword(password);
-            return db.Users.FirstOrDefault(user =>
-                        user.UserName.Equals(username, StringComparison.OrdinalIgnoreCase)
-                        && user.UserPassword == hash_password);
+            return db.Users.FirstOrDefault(user => user.EmpId == empid && user.UserPassword == hash_password);
         }
         public int UpdateLastlogin(int userid)
         {
