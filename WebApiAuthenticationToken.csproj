@@ -283,7 +283,7 @@
     </Compile>
     <Compile Include="Repository\AddSkillLevelRepo.cs" />
     <Compile Include="Repository\HRPortalRepo.cs" />
-    <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeApplicationTrackModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\EmployeeApplicationTrackModel.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeSkillReportRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeStatusHistoryRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\GeneralReportRepo.cs" />

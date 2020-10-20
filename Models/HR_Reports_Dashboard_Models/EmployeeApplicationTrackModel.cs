@@ -7,6 +7,7 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 {
     public class EmployeeApplicationTrackModel
     {
+        public int EmpId { get; set; }
         public string EmpName { get; set; }
         public string CurrentLocation { get; set; }
         public string LastProject { get; set; }

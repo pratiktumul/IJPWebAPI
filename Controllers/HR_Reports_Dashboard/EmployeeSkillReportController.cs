@@ -23,10 +23,9 @@ namespace WebApiAuthenticationToken.Controllers.HR_Reports_Dashboard
         
         [HttpGet]
         [Authorize(Roles = "User")]
-        public IHttpActionResult GetEmployeeSkillDetails()
+        public IHttpActionResult GetEmployeeSkillDetails(int id)
         {
-            var UserId = userClaimsRepo.GetUserClaims((ClaimsIdentity)User.Identity);
-            List<EmployeeSkillReportModel> Employeedetails = EmployeeSkillReportRepo.EmployeeSkillReport(UserId);
+            List<EmployeeSkillReportModel> Employeedetails = EmployeeSkillReportRepo.EmployeeSkillReport(id);
             return Ok(Employeedetails);
         }
     }

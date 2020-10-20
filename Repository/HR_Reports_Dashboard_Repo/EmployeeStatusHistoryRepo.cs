@@ -48,6 +48,7 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
                           orderby ja.Ename
                           select new
                           {
+                              ja.EmpId,
                               ja.Ename,
                               ja.Curloc,
                               ja.Project,
@@ -58,6 +59,7 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
             {
                 employeeApplications.Add(new EmployeeApplicationTrackModel
                 {
+                    EmpId = (int)item.EmpId,
                     EmpName = item.Ename,
                     CurrentLocation = item.Curloc,
                     LastProject = item.Project,
