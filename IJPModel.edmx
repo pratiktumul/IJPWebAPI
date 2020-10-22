@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="IJPDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="IJPDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="company">
           <Key>
             <PropertyRef Name="id" />
@@ -15,11 +15,11 @@
           <Property Name="establishment_date" Type="date" Nullable="false" />
           <Property Name="company_website_url" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
-        <EntityType Name="employee_skill_set">
+        <EntityType Name="employee_skill_level">
           <Key>
-            <PropertyRef Name="SId" />
+            <PropertyRef Name="sid" />
           </Key>
-          <Property Name="SId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpId" Type="int" />
           <Property Name="Skill_Set_Id" Type="int" />
           <Property Name="Skill_Level" Type="int" />
@@ -156,14 +156,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_employee_skill_set_tbl_Skill">
+        <Association Name="FK_employee_skill_level_tbl_Skill">
           <End Role="tbl_Skill" Type="Self.tbl_Skill" Multiplicity="0..1" />
-          <End Role="employee_skill_set" Type="Self.employee_skill_set" Multiplicity="*" />
+          <End Role="employee_skill_level" Type="Self.employee_skill_level" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Skill">
               <PropertyRef Name="SkillId" />
             </Principal>
-            <Dependent Role="employee_skill_set">
+            <Dependent Role="employee_skill_level">
               <PropertyRef Name="Skill_Set_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -266,7 +266,7 @@
         </Association>
         <EntityContainer Name="IJPDBModelStoreContainer">
           <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="employee_skill_set" EntityType="Self.employee_skill_set" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_skill_level" EntityType="Self.employee_skill_level" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobApplication" EntityType="Self.JobApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
@@ -285,9 +285,9 @@
             <End Role="User" EntitySet="User" />
             <End Role="JobApplication" EntitySet="JobApplication" />
           </AssociationSet>
-          <AssociationSet Name="FK_employee_skill_set_tbl_Skill" Association="Self.FK_employee_skill_set_tbl_Skill">
+          <AssociationSet Name="FK_employee_skill_level_tbl_Skill" Association="Self.FK_employee_skill_level_tbl_Skill">
             <End Role="tbl_Skill" EntitySet="tbl_Skill" />
-            <End Role="employee_skill_set" EntitySet="employee_skill_set" />
+            <End Role="employee_skill_level" EntitySet="employee_skill_level" />
           </AssociationSet>
           <AssociationSet Name="FK_JobApplication_tbl_Status" Association="Self.FK_JobApplication_tbl_Status">
             <End Role="tbl_Status" EntitySet="tbl_Status" />
@@ -322,7 +322,8 @@
             <End Role="job_posts_skill_sets" EntitySet="job_posts_skill_sets" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IJPDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -336,6 +337,16 @@
           <Property Name="establishment_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="company_website_url" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="JobOpenings" Relationship="Self.FK_JobOpening_company" FromRole="company" ToRole="JobOpening" />
+        </EntityType>
+        <EntityType Name="employee_skill_level">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpId" Type="Int32" />
+          <Property Name="Skill_Set_Id" Type="Int32" />
+          <Property Name="Skill_Level" Type="Int32" />
+          <NavigationProperty Name="tbl_Skill" Relationship="Self.FK_employee_skill_level_tbl_Skill" FromRole="employee_skill_level" ToRole="tbl_Skill" />
         </EntityType>
         <EntityType Name="job_posts_skill_sets">
           <Key>
@@ -417,8 +428,8 @@
           </Key>
           <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SkillName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="employee_skill_level" Relationship="Self.FK_employee_skill_level_tbl_Skill" FromRole="tbl_Skill" ToRole="employee_skill_level" />
           <NavigationProperty Name="job_posts_skill_sets" Relationship="Self.job_post_skill_set_skill_set" FromRole="tbl_Skill" ToRole="job_posts_skill_sets" />
-          <NavigationProperty Name="employee_skill_set" Relationship="IJPDBModel.FK_employee_skill_set_tbl_Skill" FromRole="tbl_Skill" ToRole="employee_skill_set" />
         </EntityType>
         <EntityType Name="tbl_Status">
           <Key>
@@ -474,6 +485,18 @@
             </Principal>
             <Dependent Role="JobOpening">
               <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_skill_level_tbl_Skill">
+          <End Role="tbl_Skill" Type="Self.tbl_Skill" Multiplicity="0..1" />
+          <End Role="employee_skill_level" Type="Self.employee_skill_level" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Skill">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="employee_skill_level">
+              <PropertyRef Name="Skill_Set_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -587,6 +610,7 @@
         </Association>
         <EntityContainer Name="IJPDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="companies" EntityType="Self.company" />
+          <EntitySet Name="employee_skill_level" EntityType="Self.employee_skill_level" />
           <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" />
           <EntitySet Name="JobApplications" EntityType="Self.JobApplication" />
           <EntitySet Name="JobOpenings" EntityType="Self.JobOpening" />
@@ -600,6 +624,10 @@
           <AssociationSet Name="FK_JobOpening_company" Association="Self.FK_JobOpening_company">
             <End Role="company" EntitySet="companies" />
             <End Role="JobOpening" EntitySet="JobOpenings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_skill_level_tbl_Skill" Association="Self.FK_employee_skill_level_tbl_Skill">
+            <End Role="tbl_Skill" EntitySet="tbl_Skill" />
+            <End Role="employee_skill_level" EntitySet="employee_skill_level" />
           </AssociationSet>
           <AssociationSet Name="job_post_skill_set_job_post" Association="Self.job_post_skill_set_job_post">
             <End Role="JobOpening" EntitySet="JobOpenings" />
@@ -637,34 +665,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="User_Log" EntitySet="User_Log" />
           </AssociationSet>
-          <EntitySet Name="employee_skill_set" EntityType="IJPDBModel.employee_skill_set" />
-          <AssociationSet Name="FK_employee_skill_set_tbl_Skill" Association="IJPDBModel.FK_employee_skill_set_tbl_Skill">
-            <End Role="tbl_Skill" EntitySet="tbl_Skill" />
-            <End Role="employee_skill_set" EntitySet="employee_skill_set" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="employee_skill_set">
-          <Key>
-            <PropertyRef Name="SId" />
-          </Key>
-          <Property Name="SId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpId" Type="Int32" />
-          <Property Name="Skill_Set_Id" Type="Int32" />
-          <Property Name="Skill_Level" Type="Int32" />
-          <NavigationProperty Name="tbl_Skill" Relationship="IJPDBModel.FK_employee_skill_set_tbl_Skill" FromRole="employee_skill_set" ToRole="tbl_Skill" />
-        </EntityType>
-        <Association Name="FK_employee_skill_set_tbl_Skill">
-          <End Type="IJPDBModel.tbl_Skill" Role="tbl_Skill" Multiplicity="0..1" />
-          <End Type="IJPDBModel.employee_skill_set" Role="employee_skill_set" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Skill">
-              <PropertyRef Name="SkillId" />
-            </Principal>
-            <Dependent Role="employee_skill_set">
-              <PropertyRef Name="Skill_Set_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -679,6 +680,16 @@
                 <ScalarProperty Name="profile_description" ColumnName="profile_description" />
                 <ScalarProperty Name="establishment_date" ColumnName="establishment_date" />
                 <ScalarProperty Name="company_website_url" ColumnName="company_website_url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_skill_level">
+            <EntityTypeMapping TypeName="IJPDBModel.employee_skill_level">
+              <MappingFragment StoreEntitySet="employee_skill_level">
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="Skill_Set_Id" ColumnName="Skill_Set_Id" />
+                <ScalarProperty Name="Skill_Level" ColumnName="Skill_Level" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -733,13 +744,13 @@
           <EntitySetMapping Name="RefTables">
             <EntityTypeMapping TypeName="IJPDBModel.RefTable">
               <MappingFragment StoreEntitySet="RefTable">
-                <ScalarProperty Name="pName" ColumnName="pName" />
                 <ScalarProperty Name="pEmployeId" ColumnName="pEmployeId" />
                 <ScalarProperty Name="pEmailId" ColumnName="pEmailId" />
                 <ScalarProperty Name="pPhoneNo" ColumnName="pPhoneNo" />
                 <ScalarProperty Name="pJobName" ColumnName="pJobName" />
                 <ScalarProperty Name="pLocation" ColumnName="pLocation" />
                 <ScalarProperty Name="pSkillSet" ColumnName="pSkillSet" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -796,16 +807,6 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Last_Login_Date" ColumnName="Last_Login_Date" />
                 <ScalarProperty Name="Last_Job_Apply_Date" ColumnName="Last_Job_Apply_Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="employee_skill_set">
-            <EntityTypeMapping TypeName="IJPDBModel.employee_skill_set">
-              <MappingFragment StoreEntitySet="employee_skill_set">
-                <ScalarProperty Name="Skill_Level" ColumnName="Skill_Level" />
-                <ScalarProperty Name="Skill_Set_Id" ColumnName="Skill_Set_Id" />
-                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
-                <ScalarProperty Name="SId" ColumnName="SId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

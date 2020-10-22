@@ -22,11 +22,12 @@ namespace WebApiAuthenticationToken.Controllers.HR_Reports_Dashboard
         }
         
         [HttpGet]
-        [Authorize(Roles = "User")]
-        public IHttpActionResult GetEmployeeSkillDetails()
+        [Authorize(Roles = "HR")]
+        [Route("api/GetEmployeeSkillDetails/{userid}")]
+        public IHttpActionResult GetEmployeeSkillDetails(int userid)
         {
-            var UserId = userClaimsRepo.GetUserClaims((ClaimsIdentity)User.Identity);
-            List<EmployeeSkillReportModel> Employeedetails = EmployeeSkillReportRepo.EmployeeSkillReport(UserId);
+           // var UserId = userClaimsRepo.GetUserClaims((ClaimsIdentity)User.Identity);
+            List<EmployeeSkillReportModel> Employeedetails = EmployeeSkillReportRepo.EmployeeSkillReport(userid);
             return Ok(Employeedetails);
         }
     }

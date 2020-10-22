@@ -17,16 +17,16 @@ namespace WebApiAuthenticationToken
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_Skill()
         {
+            this.employee_skill_level = new HashSet<employee_skill_level>();
             this.job_posts_skill_sets = new HashSet<job_posts_skill_sets>();
-            this.employee_skill_set = new HashSet<employee_skill_set>();
         }
     
         public int SkillId { get; set; }
         public string SkillName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<job_posts_skill_sets> job_posts_skill_sets { get; set; }
+        public virtual ICollection<employee_skill_level> employee_skill_level { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<employee_skill_set> employee_skill_set { get; set; }
+        public virtual ICollection<job_posts_skill_sets> job_posts_skill_sets { get; set; }
     }
 }

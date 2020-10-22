@@ -15,12 +15,12 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
         }
 
         // This method will return a list of employee id along with the skill sets
-        public List<EmployeeSkillReportModel> EmployeeSkillReport(int userid)
+        public List<EmployeeSkillReportModel> EmployeeSkillReport(int employeeId)
         {
-            var employeeId = db.Users.Where(x=>x.UserId == userid).Select(x=>x.EmpId).FirstOrDefault();
+            //var employeeId = db.Users.Where(x=>x.UserId == userid).Select(x=>x.EmpId).FirstOrDefault();
             List<EmployeeSkillReportModel> Employeedetails = new List<EmployeeSkillReportModel>();
 
-            var result = (from e in db.employee_skill_set
+            var result = (from e in db.employee_skill_level
                           join s in db.tbl_Skill on e.Skill_Set_Id equals s.SkillId
                           where e.EmpId == employeeId
                           select new

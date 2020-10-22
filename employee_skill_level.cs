@@ -12,9 +12,9 @@ namespace WebApiAuthenticationToken
     using System;
     using System.Collections.Generic;
     
-    public partial class employee_skill_set
+    public partial class employee_skill_level
     {
-        public int SId { get; set; }
+        public int sid { get; set; }
         public Nullable<int> EmpId { get; set; }
         public Nullable<int> Skill_Set_Id { get; set; }
         public Nullable<int> Skill_Level { get; set; }
