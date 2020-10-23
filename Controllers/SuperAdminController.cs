@@ -27,6 +27,22 @@ namespace WebApiAuthenticationToken.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Superadmin")]
+        public IHttpActionResult Post(UserModel newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                bool userDetail = superAdmin.RegisterNewUser(newUser);
+                if (userDetail == false) // if the username is already taken by someone then return bad request
+                {
+                    return BadRequest("Username Taken, Please try another username");
+                }
+                return Ok();
+            }
+            return BadRequest();
+        }
+
         // HTTP Put method to update admin's registration request
         [HttpPut]
         [Authorize(Roles = "Superadmin")]

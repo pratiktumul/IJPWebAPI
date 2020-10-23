@@ -18,6 +18,7 @@ namespace WebApiAuthenticationToken.Controllers
         }
 
         // HTTP Post method to add a new user into the system
+        [HttpPost]
         public IHttpActionResult Post(UserModel newUser)
         {
             if (ModelState.IsValid)

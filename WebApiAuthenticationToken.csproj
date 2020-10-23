@@ -206,6 +206,7 @@
     <Compile Include="Controllers\HR_Reports_Dashboard\EmployeeSkillReportController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\EmployeeStatusHistoryController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\GeneralReportController.cs" />
+    <Compile Include="Controllers\HR_Reports_Dashboard\VacancyDetailController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\VacancyReportController.cs" />
     <Compile Include="Controllers\JobOpeningController.cs" />
     <Compile Include="Controllers\JobReferalController.cs" />
@@ -256,12 +257,14 @@
     <Compile Include="Mail\SuperAdminMail.cs" />
     <Compile Include="Models\AdminJobs.cs" />
     <Compile Include="Models\AppliedJobsViewModel.cs" />
+    <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\EmployeeSkillLevelModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\EmployeeSkillReportModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\GeneralReportModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\LoginHistoryModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyByCompanyModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyByLocationModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyDetailModel.cs" />
     <Compile Include="Models\IsExpired.cs" />
     <Compile Include="Models\JobApplicationDetailModel.cs" />
     <Compile Include="Models\JobApplicationStatusModel.cs" />
@@ -287,6 +290,7 @@
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeSkillReportRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeStatusHistoryRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\GeneralReportRepo.cs" />
+    <Compile Include="Repository\HR_Reports_Dashboard_Repo\VacancyDetailRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\VacancyReportRepo.cs" />
     <Compile Include="Repository\JobOpeningRepo.cs" />
     <Compile Include="Repository\JobReferalRepo.cs" />

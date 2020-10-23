@@ -18,7 +18,7 @@ namespace WebApiAuthenticationToken.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult EmployeeSkillLevel(EmployeeSkillLevelModel newSkillLevel)
+        public IHttpActionResult EmployeeSkillLevel(EmployeeSkillLevelModel[] newSkillLevel)
         {
             if (ModelState.IsValid) // checking the modelstate to make sure the data added in the table is correct
             {

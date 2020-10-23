@@ -48,6 +48,40 @@ namespace WebApiAuthenticationToken.Repository
             }
             return false;
         }
+        public bool CheckDomain(string email)
+        {
+            string domain = "gyansys.com";
+            int indexOfAt = email.IndexOf("@");
+            string extractDomain = email.Substring(indexOfAt + 1);
+            return domain.Equals(extractDomain);
+        }
+        public bool RegisterNewUser(UserModel newUser)
+        {
+            // username check is not case sensitive
+            var userDetail = db.Users.FirstOrDefault(x => x.UserName.Equals(newUser.UserName, StringComparison.OrdinalIgnoreCase));
+
+            if (userDetail != null)
+            {
+                return false;
+            }
+
+            var isSuccess = CheckDomain(newUser.UserEmail);
+
+            User user = new User()
+            {
+                UserName = newUser.UserName,
+                UserEmail = newUser.UserEmail,
+                UserPassword = Utils.HashPassword(newUser.UserPassword),
+                Fullname = newUser.Fullname,
+                EmpId = newUser.EmpId,
+                RoleId = newUser.RoleId,
+                Status = isSuccess ? 3 : 1,
+            };
+
+            db.Users.Add(user);
+            db.SaveChanges();
+            return true;
+        }
 
     }
 }
