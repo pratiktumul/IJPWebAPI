@@ -206,6 +206,7 @@
     <Compile Include="Controllers\HR_Reports_Dashboard\EmployeeSkillReportController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\EmployeeStatusHistoryController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\GeneralReportController.cs" />
+    <Compile Include="Controllers\HR_Reports_Dashboard\SkillTrendController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\VacancyDetailController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\VacancyReportController.cs" />
     <Compile Include="Controllers\JobOpeningController.cs" />
@@ -262,6 +263,8 @@
     <Compile Include="Models\HR_Reports_Dashboard_Models\EmployeeSkillReportModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\GeneralReportModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\LoginHistoryModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\SkillsModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\SkillTrendModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyByCompanyModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyByLocationModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyDetailModel.cs" />
@@ -290,6 +293,7 @@
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeSkillReportRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeStatusHistoryRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\GeneralReportRepo.cs" />
+    <Compile Include="Repository\HR_Reports_Dashboard_Repo\SkillTrendRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\VacancyDetailRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\VacancyReportRepo.cs" />
     <Compile Include="Repository\JobOpeningRepo.cs" />
