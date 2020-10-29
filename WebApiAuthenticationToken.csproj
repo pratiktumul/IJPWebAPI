@@ -90,7 +90,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
@@ -203,9 +209,11 @@
     <Compile Include="Controllers\EmployeeJobApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRPortalController.cs" />
+    <Compile Include="Controllers\HR_Reports_Dashboard\DynamicReportController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\EmployeeSkillReportController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\EmployeeStatusHistoryController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\GeneralReportController.cs" />
+    <Compile Include="Controllers\HR_Reports_Dashboard\SkillEmployeeReportController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\SkillTrendController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\VacancyDetailController.cs" />
     <Compile Include="Controllers\HR_Reports_Dashboard\VacancyReportController.cs" />
@@ -260,11 +268,14 @@
     <Compile Include="Models\AppliedJobsViewModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\EmployeeSkillLevelModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\ColnameModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\EmployeeSkillReportModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\GeneralReportModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\LoginHistoryModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\SkillEmpModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\SkillsModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\SkillTrendModel.cs" />
+    <Compile Include="Models\HR_Reports_Dashboard_Models\TablenameModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyByCompanyModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyByLocationModel.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\VacancyDetailModel.cs" />
@@ -290,9 +301,11 @@
     <Compile Include="Repository\AddSkillLevelRepo.cs" />
     <Compile Include="Repository\HRPortalRepo.cs" />
     <Compile Include="Models\HR_Reports_Dashboard_Models\EmployeeApplicationTrackModel.cs" />
+    <Compile Include="Repository\HR_Reports_Dashboard_Repo\DynamicReportRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeSkillReportRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\EmployeeStatusHistoryRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\GeneralReportRepo.cs" />
+    <Compile Include="Repository\HR_Reports_Dashboard_Repo\SkillEmployeeRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\SkillTrendRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\VacancyDetailRepo.cs" />
     <Compile Include="Repository\HR_Reports_Dashboard_Repo\VacancyReportRepo.cs" />

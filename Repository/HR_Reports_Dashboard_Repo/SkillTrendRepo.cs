@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebApiAuthenticationToken.Models.HR_Reports_Dashboard_Models;
+using System.Data.Linq.Mapping;
+using System;
 
 namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 {
@@ -14,7 +16,8 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 
         private List<SkillTrendModel> FindSkills(string[] skills)
         {
-            string[] empSkills = db.JobApplications.Select(x => x.Skill).ToArray();
+            var timePeriod = DateTime.Today.AddMonths(-1);
+            string[] empSkills = db.JobApplications.Where(x => x.ApplyDate >= timePeriod).Select(x => x.Skill).ToArray();
             List<SkillTrendModel> skillTrends = new List<SkillTrendModel>();
             int skillCount = 0;
             foreach (var item in skills)
@@ -37,7 +40,6 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 
         public List<SkillTrendModel> getTrendingSkills()
         {
-            //var x = db.Mapping.GetTable();
             List<SkillTrendModel> trendingSkills = new List<SkillTrendModel>();
             var Skills = db.tbl_Skill.Select(x => x.SkillName).ToArray();
             var skillTrends = FindSkills(Skills);
@@ -50,7 +52,9 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
                     Count = item.Max(x => x.Count)
                 });
             }
+
             return trendingSkills;
+
         }
     }
 }

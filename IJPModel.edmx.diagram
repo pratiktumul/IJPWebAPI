@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7423deaa34a847c0b01eb26223a67412" Name="Diagram1" ZoomLevel="77">
-        <EntityTypeShape EntityType="IJPDBModel.company" Width="1.5" PointX="1.5" PointY="12.625" IsExpanded="true" />
+      <Diagram DiagramId="7423deaa34a847c0b01eb26223a67412" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="IJPDBModel.company" Width="1.5" PointX="6.75" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="IJPDBModel.job_posts_skill_sets" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="IJPDBModel.JobApplication" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IJPDBModel.JobApplication" Width="1.5" PointX="3.25" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="IJPDBModel.JobOpening" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="IJPDBModel.RefTable" Width="1.5" PointX="5.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="IJPDBModel.Role" Width="1.5" PointX="3.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="IJPDBModel.tbl_Skill" Width="1.5" PointX="0.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IJPDBModel.RefTable" Width="1.5" PointX="8.875" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IJPDBModel.Role" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IJPDBModel.tbl_Skill" Width="1.5" PointX="3.375" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="IJPDBModel.tbl_Status" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="IJPDBModel.User" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="IJPDBModel.User_Image" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="IJPDBModel.User_Log" Width="1.5" PointX="8.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IJPDBModel.User" Width="1.5" PointX="6.125" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IJPDBModel.User_Image" Width="1.5" PointX="9.375" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IJPDBModel.User_Log" Width="1.5" PointX="9.375" PointY="6.5" IsExpanded="true" />
         <AssociationConnector Association="IJPDBModel.FK_JobOpening_company" ManuallyRouted="false" />
         <AssociationConnector Association="IJPDBModel.job_post_skill_set_job_post" ManuallyRouted="false" />
         <AssociationConnector Association="IJPDBModel.job_post_skill_set_skill_set" ManuallyRouted="false" />
@@ -26,7 +26,7 @@
         <AssociationConnector Association="IJPDBModel.FK_User_tbl_Status" ManuallyRouted="false" />
         <AssociationConnector Association="IJPDBModel.FK_User_Image_User" ManuallyRouted="false" />
         <AssociationConnector Association="IJPDBModel.FK_User_Log_User" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="IJPDBModel.employee_skill_set" Width="1.5" PointX="3" PointY="16.5" />
+        <EntityTypeShape EntityType="IJPDBModel.employee_skill_set" Width="1.5" PointX="11.875" PointY="8" />
         <AssociationConnector Association="IJPDBModel.FK_employee_skill_set_tbl_Skill" />
       </Diagram>
     </edmx:Diagrams>
