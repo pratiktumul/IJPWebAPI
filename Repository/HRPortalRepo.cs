@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Web;
 using WebApiAuthenticationToken.Mail;
 using WebApiAuthenticationToken.Models;
@@ -45,6 +44,7 @@ namespace WebApiAuthenticationToken.Repository
                                  ja.Id,
                                  ja.Ename,
                                  ja.UserId,
+                                 ja.Skill,
                                  jo.CompanyName,
                                  jo.JobTitle,
                                  jo.JobId
@@ -57,6 +57,7 @@ namespace WebApiAuthenticationToken.Repository
                     ApplicationId = item.Id,
                     EmployeeName = item.Ename,
                     UserId = (int)item.UserId,
+                    Skills = item.Skill,
                     CompanyName = item.CompanyName,
                     JobTitle = item.JobTitle,
                     JobId = item.JobId
@@ -155,6 +156,36 @@ namespace WebApiAuthenticationToken.Repository
                     //interview.SendEmail(userDetails, model, companyName);
                     return true;
                 }
+            }
+            return false;
+        }
+
+        public List<JobReferalModel> GetAllReferals()
+        {
+            var queryResult = (from r in db.RefTables
+                               join j in db.JobOpenings on r.JobId equals j.JobId
+                               select new JobReferalModel
+                               {
+                                   Id = r.pEmployeId,
+                                   EmailId = r.pEmailId,
+                                   PhoneNo = r.pPhoneNo,
+                                   JobTitle = j.JobTitle,
+                                   Location = j.Location,
+                                   EmpName = r.pName,
+                                   CompanyName = j.CompanyName
+                               }).ToList();
+
+            return queryResult;
+        }
+
+        public bool DeleteReferal(int id)
+        {
+            var refDetail = db.RefTables.FirstOrDefault(x => x.pEmployeId == id);
+            if(refDetail != null)
+            {
+                db.RefTables.Remove(refDetail);
+                db.SaveChanges();
+                return true;
             }
             return false;
         }

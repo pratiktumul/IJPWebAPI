@@ -13,5 +13,6 @@ namespace WebApiAuthenticationToken.Models
         public string pLocation { get; set; }
         public string pSkillSet { get; set; }
         public string pName { get; set; }
+        public int JobId { get; set; }
     }
 }

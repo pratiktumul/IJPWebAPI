@@ -12,17 +12,9 @@ namespace WebApiAuthenticationToken
     using System;
     using System.Collections.Generic;
     
-    public partial class RefTable
+    public partial class Location
     {
-        public int pEmployeId { get; set; }
-        public string pEmailId { get; set; }
-        public string pPhoneNo { get; set; }
-        public string pJobName { get; set; }
-        public string pLocation { get; set; }
-        public string pSkillSet { get; set; }
-        public string pName { get; set; }
-        public Nullable<int> JobId { get; set; }
-    
-        public virtual JobOpening JobOpening { get; set; }
+        public int LocationId { get; set; }
+        public string LocationName { get; set; }
     }
 }

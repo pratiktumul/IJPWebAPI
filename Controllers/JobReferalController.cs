@@ -23,5 +23,12 @@ namespace WebApiAuthenticationToken.Controllers
             var isSuccess = referalRepo.AddReferal(jobRef);
             return isSuccess ? Ok() : (IHttpActionResult)BadRequest();
         }
+
+        [HttpGet]
+        public IHttpActionResult GetJobDetails(int id)
+        {
+            var result = referalRepo.GetJobDetails(id);
+            return Ok(result);
+        }
     }
 }

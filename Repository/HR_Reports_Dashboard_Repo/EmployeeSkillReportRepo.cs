@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebApiAuthenticationToken.Models.HR_Reports_Dashboard_Models;
+using Microsoft.Ajax.Utilities;
 
 namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 {
@@ -28,7 +29,7 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
                               e.Skill_Level,
                               s.SkillName
                           }).ToList();
-            
+
             foreach (var item in result)
             {
 
@@ -40,7 +41,9 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
                 });
 
             }
-            return Employeedetails;
+            var res = Employeedetails.OrderByDescending(x => x.SkillLevel);
+            List<EmployeeSkillReportModel> distinct = res.DistinctBy(x => x.SkillSetName).ToList();
+            return distinct;
         }
     }
 }

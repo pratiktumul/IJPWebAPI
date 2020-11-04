@@ -70,6 +70,13 @@
           <Property Name="Salary" Type="int" />
           <Property Name="company_id" Type="int" />
         </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="RefTable">
           <Key>
             <PropertyRef Name="pEmployeId" />
@@ -81,6 +88,7 @@
           <Property Name="pLocation" Type="varchar(max)" />
           <Property Name="pSkillSet" Type="varchar(max)" />
           <Property Name="pName" Type="varchar(max)" />
+          <Property Name="JobId" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -192,6 +200,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RefTable_JobOpening">
+          <End Role="JobOpening" Type="Self.JobOpening" Multiplicity="0..1" />
+          <End Role="RefTable" Type="Self.RefTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOpening">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="RefTable">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Image_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="User_Image" Type="Self.User_Image" Multiplicity="*" />
@@ -270,6 +290,7 @@
           <EntitySet Name="job_posts_skill_sets" EntityType="Self.job_posts_skill_sets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobApplication" EntityType="Self.JobApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobOpening" EntityType="Self.JobOpening" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RefTable" EntityType="Self.RefTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Skill" EntityType="Self.tbl_Skill" Schema="dbo" store:Type="Tables" />
@@ -296,6 +317,10 @@
           <AssociationSet Name="FK_JobOpening_company" Association="Self.FK_JobOpening_company">
             <End Role="company" EntitySet="company" />
             <End Role="JobOpening" EntitySet="JobOpening" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RefTable_JobOpening" Association="Self.FK_RefTable_JobOpening">
+            <End Role="JobOpening" EntitySet="JobOpening" />
+            <End Role="RefTable" EntitySet="RefTable" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Image_User" Association="Self.FK_User_Image_User">
             <End Role="User" EntitySet="User" />
@@ -390,6 +415,7 @@
           <NavigationProperty Name="company" Relationship="Self.FK_JobOpening_company" FromRole="JobOpening" ToRole="company" />
           <NavigationProperty Name="job_posts_skill_sets" Relationship="Self.job_post_skill_set_job_post" FromRole="JobOpening" ToRole="job_posts_skill_sets" />
           <NavigationProperty Name="JobApplications" Relationship="Self.FK_Demo_JobOpening" FromRole="JobOpening" ToRole="JobApplication" />
+          <NavigationProperty Name="RefTables" Relationship="IJPDBModel.FK_RefTable_JobOpening" FromRole="JobOpening" ToRole="RefTable" />
         </EntityType>
         <EntityType Name="RefTable">
           <Key>
@@ -402,6 +428,8 @@
           <Property Name="pLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="pSkillSet" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="pName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="JobId" Type="Int32" />
+          <NavigationProperty Name="JobOpening" Relationship="IJPDBModel.FK_RefTable_JobOpening" FromRole="RefTable" ToRole="JobOpening" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -642,6 +670,11 @@
             <End Role="tbl_Skill" EntitySet="tbl_Skill" />
             <End Role="employee_skill_set" EntitySet="employee_skill_set" />
           </AssociationSet>
+          <EntitySet Name="Locations" EntityType="IJPDBModel.Location" />
+          <AssociationSet Name="FK_RefTable_JobOpening" Association="IJPDBModel.FK_RefTable_JobOpening">
+            <End Role="JobOpening" EntitySet="JobOpenings" />
+            <End Role="RefTable" EntitySet="RefTables" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="employee_skill_set">
           <Key>
@@ -662,6 +695,25 @@
             </Principal>
             <Dependent Role="employee_skill_set">
               <PropertyRef Name="Skill_Set_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_RefTable_JobOpening">
+          <End Type="IJPDBModel.JobOpening" Role="JobOpening" Multiplicity="0..1" />
+          <End Type="IJPDBModel.RefTable" Role="RefTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOpening">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="RefTable">
+              <PropertyRef Name="JobId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -733,6 +785,7 @@
           <EntitySetMapping Name="RefTables">
             <EntityTypeMapping TypeName="IJPDBModel.RefTable">
               <MappingFragment StoreEntitySet="RefTable">
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
                 <ScalarProperty Name="pName" ColumnName="pName" />
                 <ScalarProperty Name="pEmployeId" ColumnName="pEmployeId" />
                 <ScalarProperty Name="pEmailId" ColumnName="pEmailId" />
@@ -806,6 +859,14 @@
                 <ScalarProperty Name="Skill_Set_Id" ColumnName="Skill_Set_Id" />
                 <ScalarProperty Name="EmpId" ColumnName="EmpId" />
                 <ScalarProperty Name="SId" ColumnName="SId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="IJPDBModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

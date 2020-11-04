@@ -16,7 +16,7 @@ namespace WebApiAuthenticationToken.Repository.HR_Reports_Dashboard_Repo
 
         private List<SkillTrendModel> FindSkills(string[] skills)
         {
-            var timePeriod = DateTime.Today.AddMonths(-1);
+            var timePeriod = DateTime.Today.AddMonths(-2);
             string[] empSkills = db.JobApplications.Where(x => x.ApplyDate >= timePeriod).Select(x => x.Skill).ToArray();
             List<SkillTrendModel> skillTrends = new List<SkillTrendModel>();
             int skillCount = 0;

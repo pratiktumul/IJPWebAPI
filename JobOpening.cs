@@ -19,6 +19,7 @@ namespace WebApiAuthenticationToken
         {
             this.job_posts_skill_sets = new HashSet<job_posts_skill_sets>();
             this.JobApplications = new HashSet<JobApplication>();
+            this.RefTables = new HashSet<RefTable>();
         }
     
         public int JobId { get; set; }
@@ -39,5 +40,7 @@ namespace WebApiAuthenticationToken
         public virtual ICollection<job_posts_skill_sets> job_posts_skill_sets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobApplication> JobApplications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RefTable> RefTables { get; set; }
     }
 }

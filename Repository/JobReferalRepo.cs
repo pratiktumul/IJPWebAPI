@@ -18,7 +18,8 @@ namespace WebApiAuthenticationToken.Repository
         {
             RefTable refTablev = new RefTable()
             {
-               // pEmployeId = jobReferal.pEmployeId,
+                // pEmployeId = jobReferal.pEmployeId,
+                JobId = jobReferal.JobId,
                 pEmailId = jobReferal.pEmailId,
                 pLocation = jobReferal.pLocation,
                 pJobName = jobReferal.pJobName,
@@ -30,6 +31,17 @@ namespace WebApiAuthenticationToken.Repository
             db.RefTables.Add(refTablev);
             db.SaveChanges();
             return true;
+        }
+
+        public JobReferralDetailModel GetJobDetails(int id)
+        {
+            var jobDetails = db.JobOpenings.Where(x => x.JobId == id).Select(x => new JobReferralDetailModel
+            {
+                JobTitle = x.JobTitle,
+                Location = x.Location,
+                Description = x.JobDescription
+            }).FirstOrDefault();
+            return jobDetails;
         }
     }
 }

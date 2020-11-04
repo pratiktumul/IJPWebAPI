@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -63,6 +58,31 @@ namespace WebApiAuthenticationToken.Controllers
         {
             bool isSuccess = hRPortal.UpdateJobStatus(id, model);
             return isSuccess ? Ok() : (IHttpActionResult)NotFound();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "HR")]
+        [Route("api/hrportal/jobreferals")]
+        public IHttpActionResult GetAllReferals()
+        {
+            List<JobReferalModel> response = hRPortal.GetAllReferals();
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public IHttpActionResult SendEmail()
+        {
+            List<JobReferalModel> response = hRPortal.GetAllReferals();
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "HR")]
+        public IHttpActionResult DeleteReferal(int id)
+        {
+            var response = hRPortal.DeleteReferal(id);
+            return response ? Ok(response) : (IHttpActionResult)BadRequest();
         }
     }
 }
